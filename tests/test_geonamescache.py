@@ -18,9 +18,9 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         cdata = (('AF', 'Africa'), ('AN', 'Antarctica'), ('AS', 'Asia'),
                  ('EU', 'Europe'), ('NA', 'North America'), ('OC', 'Oceania'),
                  ('SA', 'South America'))
-        for c in cdata:
-            self.assertIn(c[0], continents)
-            self.assertEqual(c[1], continents[c[0]]['name'])
+        for cc, name in cdata:
+            self.assertIn(cc, continents)
+            self.assertEqual(name, continents[cc]['name'])
 
         self.assertNotIn('XX', continents)
         self.assertNotIn('OO', continents)
