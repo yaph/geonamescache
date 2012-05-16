@@ -19,6 +19,8 @@ setup(
     url='https://github.com/yaph/geonamescache',
     license=license,
     packages=find_packages(exclude=('tests', 'data', 'scripts')),
+    package_data={'': ['LICENSE']},
+    include_package_data=True,
     classifiers=(
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
