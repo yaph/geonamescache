@@ -11,7 +11,7 @@ with open('LICENSE') as f:
 
 setup(
     name='geonamescache',
-    version='0.1',
+    version='0.2',
     description='Geonames data for continents, cities and US states.',
     long_description=readme,
     author='Ramiro Gómez',
