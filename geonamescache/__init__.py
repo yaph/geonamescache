@@ -16,7 +16,7 @@ __license__ = 'MIT'
 __copyright__ = 'Copyright 2012 Ramiro Gómez'
 
 
-import geonamesdata
+from . import geonamesdata
 
 class GeonamesCache:
 

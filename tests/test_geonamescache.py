@@ -15,41 +15,39 @@ class GeonamesCacheTestSuite(unittest.TestCase):
 
     def test_continents(self):
         continents = self.geonamescache.get_continents()
-        cdata = (('AF', 'Africa'), ('AN', 'Antarctica'), ('AS', 'Asia'),
+        testdata = (('AF', 'Africa'), ('AN', 'Antarctica'), ('AS', 'Asia'),
                  ('EU', 'Europe'), ('NA', 'North America'), ('OC', 'Oceania'),
                  ('SA', 'South America'))
-        for cc, name in cdata:
-            self.assertIn(cc, continents)
-            self.assertEqual(name, continents[cc]['name'])
+        for code, name in testdata:
+            self.assertTrue(code in continents)
+            self.assertEqual(name, continents[code]['name'])
 
-        self.assertNotIn('XX', continents)
-        self.assertNotIn('OO', continents)
+        for code in ['XX', 'OO']:
+            self.assertTrue(code not in continents)
 
 
     def test_get_countries(self):
         countries = self.geonamescache.get_countries()
 
-        self.assertIn('ES', countries)
-        self.assertEqual('Spain', countries['ES']['name'])
+        testdata = (('ES', 'Spain'), ('FR', 'France'), ('US', 'United States'))
+        for code, name in testdata:
+            self.assertTrue(code in countries)
+            self.assertEqual(name, countries[code]['name'])
 
-        self.assertIn('FR', countries)
-        self.assertEqual('France', countries['FR']['name'])
-
-        self.assertNotIn('XX', countries)
-        self.assertNotIn('OO', countries)
+        for code in ['XX', 'OO']:
+            self.assertTrue(code not in countries)
 
 
     def test_us_states(self):
         us_states = self.geonamescache.get_us_states()
 
-        self.assertIn('NM', us_states)
-        self.assertEqual('New Mexico', us_states['NM']['name'])
+        testdata = (('NM', 'New Mexico'), ('CA', 'California'), ('NV', 'Nevada'))
+        for code, name in testdata:
+            self.assertTrue(code in us_states)
+            self.assertEqual(name, us_states[code]['name'])
 
-        self.assertIn('CA', us_states)
-        self.assertEqual('California', us_states['CA']['name'])
-
-        self.assertNotIn('XX', us_states)
-        self.assertNotIn('OO', us_states)
+        for code in ['XX', 'OO']:
+            self.assertTrue(code not in us_states)
 
 
 if __name__ == '__main__':
