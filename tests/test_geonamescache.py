@@ -15,26 +15,12 @@ class GeonamesCacheTestSuite(unittest.TestCase):
 
     def test_continents(self):
         continents = self.geonamescache.get_continents()
-        self.assertIn('AF', continents)
-        self.assertEqual('Africa', continents['AF']['name'])
-
-        self.assertIn('AN', continents)
-        self.assertEqual('Antarctica', continents['AN']['name'])
-
-        self.assertIn('AS', continents)
-        self.assertEqual('Asia', continents['AS']['name'])
-
-        self.assertIn('EU', continents)
-        self.assertEqual('Europe', continents['EU']['name'])
-
-        self.assertIn('NA', continents)
-        self.assertEqual('North America', continents['NA']['name'])
-
-        self.assertIn('OC', continents)
-        self.assertEqual('Oceania', continents['OC']['name'])
-
-        self.assertIn('SA', continents)
-        self.assertEqual('South America', continents['SA']['name'])
+        cdata = (('AF', 'Africa'), ('AN', 'Antarctica'), ('AS', 'Asia'),
+                 ('EU', 'Europe'), ('NA', 'North America'), ('OC', 'Oceania'),
+                 ('SA', 'South America'))
+        for c in cdata:
+            self.assertIn(c[0], continents)
+            self.assertEqual(c[1], continents[c[0]]['name'])
 
         self.assertNotIn('XX', continents)
         self.assertNotIn('OO', continents)
