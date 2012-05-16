@@ -9,4 +9,4 @@ for record in reader:
     if not geonameid:
         geonameid = None
     print "'%s': {'name': '%s', 'continent_code': '%s', 'geonameid': %s}," % (ISO, Country, Continent, geonameid)
-    
+
