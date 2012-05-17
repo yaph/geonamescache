@@ -23,7 +23,10 @@ class GeonamesCache:
     continents = geonamesdata.continents
     countries = geonamesdata.countries
     us_states = geonamesdata.us_states
+
     cities = None
+    cities_items = None
+    cities_by_names = {}
 
 
     def get_continents(self):
@@ -53,7 +56,13 @@ class GeonamesCache:
 
         City names cannot be used as keys, as they are not unique.
         """
-        pass
+
+        if name not in self.cities_by_names:
+            if self.cities_items is None:
+                self.cities_items = self.get_cities().items()
+            self.cities_by_names[name] = [dict({gid: city}) 
+                for gid, city in self.cities_items if city['name'] == name]
+        return self.cities_by_names[name]
 
 
     def _load_cities(self):
