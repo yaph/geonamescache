@@ -10,7 +10,7 @@ geonamescache
 """
 
 __title__ = 'geonamescache'
-__version__ = '0.5'
+__version__ = '0.6dev'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2012 Ramiro Gómez'
@@ -29,3 +29,11 @@ class GeonamesCache:
     def get_us_states(self):
         return geonamesdata.us_states
 
+    def get_countries_by_names(self):
+        by_names = {}
+        countries = geonamesdata.countries
+        for code in countries:
+            name = countries[code]['name']
+            countries[code]['code'] = code # TODO remove this
+            by_names[name] = countries[code]
+        return by_names
