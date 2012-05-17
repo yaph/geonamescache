@@ -45,6 +45,10 @@ class GeonamesCache:
         return dict((d['name'], d) for c, d in self.countries.items())
 
 
+    def get_us_states_by_names(self):
+        return dict((d['name'], d) for c, d in self.us_states.items())
+
+
     def get_cities(self):
         """Get a dictionary of cities keyed by geonameid."""
 
