@@ -46,7 +46,7 @@ Currently geonamescache provides the following methods, that all return dictiona
 TODOs
 -----
 
-- Implement get_cities_by_name
+- analyze performance of get_cities_by_name
 
 
 Contributing
