@@ -50,6 +50,13 @@ class GeonamesCacheTestSuite(unittest.TestCase):
             self.assertTrue(code not in us_states)
 
 
+    def test_get_countries_by_names(self):
+        # length of get_countries_by_names dict and get_countries dict must be
+        # the same, unless country names wouldn't be unique
+        self.assertTrue(len(self.geonamescache.get_countries_by_names()),
+                        len(self.geonamescache.get_countries()))
+
+
 if __name__ == '__main__':
     unittest.main()
 

@@ -46,7 +46,7 @@ Currently geonamescache provides the following methods, that all return dictiona
 TODOs
 -----
 
-- Add cities greater than 150k
+- Implement get_cities_by_name
 
 
 Contributing
