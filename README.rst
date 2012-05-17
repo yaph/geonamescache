@@ -46,8 +46,6 @@ Currently geonamescache provides the following methods, that all return dictiona
 TODOs
 -----
 
-- Always include all data in dicts only change keys based on get_* method, i.e. code or name
-- Include population data for countries
 - Add cities greater than 150k
 
 
