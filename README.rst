@@ -53,9 +53,8 @@ Contributing
 ------------
 
 1. Fork `the repository`_ on GitHub
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Added some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create new Pull Request
+2. Commit your changes to the **develop** branch
+3. Write test(s) for any new feature
+4. Push your changes and send a pull request
 
 .. _`the repository`: http://github.com/yaph/geonamescache
