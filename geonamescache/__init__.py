@@ -29,6 +29,10 @@ class GeonamesCache:
     cities_by_names = {}
 
 
+    def get_dataset_by_key(self, dataset, key):
+        return dict((d[key], d) for c, d in dataset.items())
+
+
     def get_continents(self):
         return self.continents
 
@@ -42,11 +46,11 @@ class GeonamesCache:
 
 
     def get_countries_by_names(self):
-        return dict((d['name'], d) for c, d in self.countries.items())
+        return self.get_dataset_by_key(self.countries, 'name')
 
 
     def get_us_states_by_names(self):
-        return dict((d['name'], d) for c, d in self.us_states.items())
+        return self.get_dataset_by_key(self.us_states, 'name')
 
 
     def get_cities(self):
@@ -71,15 +75,10 @@ class GeonamesCache:
 
     def _load_cities(self):
         if self.cities is None:
-            import os
-            try:
-                import cPickle as pickle
-            except:
-                import pickle
+            import os, json
             fc = open(os.path.join(
-                os.path.dirname(os.path.abspath(__file__)),
-                'cities.pickle'), 'rb')
-            self.cities = pickle.load(fc)
+                os.path.dirname(os.path.abspath(__file__)), 'cities.json'), 'r')
+            self.cities = json.load(fc)
             fc.close()
         return self.cities
 
