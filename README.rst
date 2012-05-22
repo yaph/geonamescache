@@ -43,6 +43,12 @@ Currently geonamescache provides the following methods, that all return dictiona
 - get_us_states()
 
 
+TODOs
+-----
+
+- analyze performance of get_cities_by_name
+
+
 Contributing
 ------------
 
