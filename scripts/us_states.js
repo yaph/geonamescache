@@ -7,7 +7,7 @@ $('#subdivtable1 tr').each(function(idx, elt){
         if (href) {
             var gid = href.split('/')[3];
             var name = link.text();
-            console.log("'"+code+"': {'name': '"+name+"', 'geonameid': "+gid+"},");
+            console.log("'"+code+"': {'code': '"+code+"', 'name': '"+name+"', 'geonameid': "+gid+"},");
         }
     }
 });
