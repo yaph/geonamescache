@@ -1,2 +1,2 @@
 include README.rst LICENSE
-recursive-include geonamescache *.pickle
+recursive-include geonamescache *.json
