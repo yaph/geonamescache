@@ -57,6 +57,16 @@ class GeonamesCacheTestSuite(unittest.TestCase):
                         len(self.geonamescache.get_countries()))
 
 
+    def test_get_cities_by_name(self):
+        cities = self.geonamescache.get_cities()
+        for gid, name in (('3191316', 'Samobor'), ('3107112', 'Vaciamadrid')):
+            self.assertEqual(name, cities[gid]['name'])
+
+
+    def test_get_cities_by_name(self):
+        self.assertEqual(2, len(self.geonamescache.get_cities_by_name('Madrid')))
+
+
 if __name__ == '__main__':
     unittest.main()
 
