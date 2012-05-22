@@ -41,13 +41,16 @@ Currently geonamescache provides the following methods, that all return dictiona
 - get_continents()
 - get_countries()
 - get_us_states()
-
+- get_cities()
+- get_countries_by_names()
+- get_us_states_by_names()
+- get_cities_by_name(name)
 
 TODOs
 -----
 
 - analyze performance of get_cities_by_name
-
+- rather call get_dataset_by_key with name of dataset, so there is no need for *_by_names methods
 
 Contributing
 ------------
