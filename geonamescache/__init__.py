@@ -10,23 +10,24 @@ geonamescache
 """
 
 __title__ = 'geonamescache'
-__version__ = '0.6'
+__version__ = '0.7'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2012 Ramiro Gómez'
 
 
+import os, json
 from . import geonamesdata
 
 class GeonamesCache:
 
     continents = geonamesdata.continents
-    countries = geonamesdata.countries
     us_states = geonamesdata.us_states
-
+    countries = None
     cities = None
     cities_items = None
     cities_by_names = {}
+    datadir = os.path.dirname(os.path.abspath(__file__))
 
 
     def get_dataset_by_key(self, dataset, key):
@@ -38,7 +39,7 @@ class GeonamesCache:
 
 
     def get_countries(self):
-        return self.countries
+        return self._load_data(self.countries, 'countries.json')
 
 
     def get_us_states(self):
@@ -46,17 +47,17 @@ class GeonamesCache:
 
 
     def get_countries_by_names(self):
-        return self.get_dataset_by_key(self.countries, 'name')
+        return self.get_dataset_by_key(self.get_countries(), 'name')
 
 
     def get_us_states_by_names(self):
-        return self.get_dataset_by_key(self.us_states, 'name')
+        return self.get_dataset_by_key(self.get_us_states(), 'name')
 
 
     def get_cities(self):
         """Get a dictionary of cities keyed by geonameid."""
 
-        return self._load_cities()
+        return self._load_data(self.cities, 'cities.json')
 
 
     def get_cities_by_name(self, name):
@@ -73,12 +74,9 @@ class GeonamesCache:
         return self.cities_by_names[name]
 
 
-    def _load_cities(self):
-        if self.cities is None:
-            import os, json
-            fc = open(os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), 'cities.json'), 'r')
-            self.cities = json.load(fc)
-            fc.close()
-        return self.cities
-
+    def _load_data(self, datadict, datafile):
+        if datadict is None:
+            f = open(os.path.join(self.datadir, datafile), 'r')
+            datadict = json.load(f)
+            f.close()
+        return datadict
