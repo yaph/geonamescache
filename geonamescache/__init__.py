@@ -39,7 +39,9 @@ class GeonamesCache:
 
 
     def get_countries(self):
-        return self._load_data(self.countries, 'countries.json')
+        if self.countries is None:
+            self.countries = self._load_data(self.countries, 'countries.json')
+        return self.countries
 
 
     def get_us_states(self):
@@ -57,7 +59,9 @@ class GeonamesCache:
     def get_cities(self):
         """Get a dictionary of cities keyed by geonameid."""
 
-        return self._load_data(self.cities, 'cities.json')
+        if self.cities is None:
+            self.cities = self._load_data(self.cities, 'cities.json')
+        return self.cities
 
 
     def get_cities_by_name(self, name):
