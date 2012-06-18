@@ -15,6 +15,7 @@ for record in reader:
         'iso': iso,
         'iso3': iso3,
         'isonumeric': int(isonumeric),
+        'fips': fips,
         'continentcode': continentcode,
         'capital': capital,
         'areakm2': int(float(areakm2)) if areakm2 else 0,
