@@ -1,13 +1,21 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import csv, json
+import csv
+import json
 
 fcsv = open('../data/countryInfo.txt', 'rb')
 reader = csv.reader(fcsv, 'excel-tab')
-headers = reader.next()
+headers = next(reader)
 countries = {}
 
 for record in reader:
-    (iso, iso3, isonumeric, fips, name, capital, areakm2, population, continentcode, tld, currencycode, currencyname, phone, postalcodeformat, postalcoderegex, languages, geonameid, neighbours, equivalentfipscode) = record
+    if record[0].startswith('#'):
+        continue
+
+    (iso, iso3, isonumeric, fips, name, capital, areakm2, population,
+    continentcode, tld, currencycode, currencyname, phone, postalcodeformat,
+    postalcoderegex, languages, geonameid, neighbours,
+    equivalentfipscode) = record
 
     countries[iso] = {
         'geonameid': int(geonameid) if geonameid else 0,
