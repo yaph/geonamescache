@@ -12,7 +12,7 @@ __title__ = 'geonamescache'
 __version__ = '0.9'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
-__copyright__ = 'Copyright 2012 Ramiro Gómez'
+__copyright__ = 'Copyright 2013 Ramiro Gómez'
 
 
 import os
@@ -22,8 +22,8 @@ from . import geonamesdata
 
 class GeonamesCache:
 
-    continents = geonamesdata.continents
     us_states = geonamesdata.us_states
+    continents = None
     countries = None
     cities = None
     cities_items = None
@@ -34,6 +34,9 @@ class GeonamesCache:
         return dict((d[key], d) for c, d in list(dataset.items()))
 
     def get_continents(self):
+        if self.continents is None:
+            self.continents = self._load_data(
+                self.continents, 'continents.json')
         return self.continents
 
     def get_countries(self):
@@ -72,7 +75,6 @@ class GeonamesCache:
 
     def _load_data(self, datadict, datafile):
         if datadict is None:
-            f = open(os.path.join(self.datadir, datafile), 'r')
-            datadict = json.load(f)
-            f.close()
+            with open(os.path.join(self.datadir, datafile), 'r') as f:
+                datadict = json.load(f)
         return datadict

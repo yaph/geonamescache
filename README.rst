@@ -1,7 +1,8 @@
 Geonames Cache
 ==============
 
-A Python library that provides functions to retrieve names and codes of continents, countries and US states as Python dictionaries.
+A Python library that provides functions to retrieve names and codes of
+continents, countries and US states as Python dictionaries.
 
 Geonames data is obtained from `GeoNames
 <http://www.geonames.org/>`_.
@@ -25,7 +26,7 @@ Usage
 A simple usage example: ::
 
     import geonamescache
-    
+
     gc = geonamescache.GeonamesCache()
     countries = gc.get_countries()
     # print countries dictionary
@@ -36,7 +37,8 @@ A simple usage example: ::
 Methods
 -------
 
-Currently geonamescache provides the following methods, that all return dictionaries with the requested data:
+Currently geonamescache provides the following methods, that all return
+dictionaries with the requested data:
 
 - get_continents()
 - get_countries()
@@ -50,7 +52,7 @@ TODOs
 -----
 
 - analyze performance of get_cities_by_name
-- rather call get_dataset_by_key with name of dataset, so there is no need for *_by_names methods
+- call get_dataset_by_key with name of dataset, so there is no need for \*_by_names methods
 
 Contributing
 ------------
