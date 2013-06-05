@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-
-import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from geonamescache import GeonamesCache
+from ..geonamescache import GeonamesCache
 
 
 class GeonamesCacheTestSuite(unittest.TestCase):
@@ -11,7 +8,6 @@ class GeonamesCacheTestSuite(unittest.TestCase):
 
     def setUp(self):
         self.geonamescache = GeonamesCache()
-
 
     def test_continents(self):
         continents = self.geonamescache.get_continents()
@@ -25,7 +21,6 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         for code in ['XX', 'OO']:
             self.assertTrue(code not in continents)
 
-
     def test_get_countries(self):
         countries = self.geonamescache.get_countries()
 
@@ -37,11 +32,11 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         for code in ['XX', 'OO']:
             self.assertTrue(code not in countries)
 
-
     def test_us_states(self):
         us_states = self.geonamescache.get_us_states()
 
-        testdata = (('NM', 'New Mexico'), ('CA', 'California'), ('NV', 'Nevada'))
+        testdata = (
+            ('NM', 'New Mexico'), ('CA', 'California'), ('NV', 'Nevada'))
         for code, name in testdata:
             self.assertTrue(code in us_states)
             self.assertEqual(name, us_states[code]['name'])
@@ -49,22 +44,20 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         for code in ['XX', 'OO']:
             self.assertTrue(code not in us_states)
 
-
     def test_get_countries_by_names(self):
         # length of get_countries_by_names dict and get_countries dict must be
         # the same, unless country names wouldn't be unique
         self.assertTrue(len(self.geonamescache.get_countries_by_names()),
                         len(self.geonamescache.get_countries()))
 
-
     def test_get_cities_by_name(self):
         cities = self.geonamescache.get_cities()
         for gid, name in (('3191316', 'Samobor'), ('3107112', 'Vaciamadrid')):
             self.assertEqual(name, cities[gid]['name'])
 
-
     def test_get_cities_by_name(self):
-        self.assertEqual(2, len(self.geonamescache.get_cities_by_name('Madrid')))
+        self.assertEqual(
+            2, len(self.geonamescache.get_cities_by_name('Madrid')))
 
 
 if __name__ == '__main__':
