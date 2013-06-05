@@ -23,3 +23,7 @@ def tojson():
         local('./continents.py')
         local('./countries.py')
         local('./cities.py')
+
+
+def pypi():
+    local('python setup.py sdist upload')
