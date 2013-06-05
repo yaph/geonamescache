@@ -1,15 +1,4 @@
 # -*- coding: utf-8 -*-
-
-continents = {
-    'AF': {'code': 'AF', 'name': 'Africa', 'geonameid': 6255146},
-    'AS': {'code': 'AS', 'name': 'Asia', 'geonameid': 6255147},
-    'EU': {'code': 'EU', 'name': 'Europe', 'geonameid': 6255148},
-    'NA': {'code': 'NA', 'name': 'North America', 'geonameid': 6255149},
-    'OC': {'code': 'OC', 'name': 'Oceania', 'geonameid': 6255151},
-    'SA': {'code': 'SA', 'name': 'South America', 'geonameid': 6255150},
-    'AN': {'code': 'AN', 'name': 'Antarctica', 'geonameid': 6255152}
-}
-
 us_states = {
     'AK': {'code': 'AK', 'name': 'Alaska', 'geonameid': 5879092},
     'AL': {'code': 'AL', 'name': 'Alabama', 'geonameid': 4829764},
