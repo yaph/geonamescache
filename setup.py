@@ -14,7 +14,7 @@ setup(
     description='Geonames data for continents, cities and US states.',
     long_description=readme,
     author='Ramiro Gómez',
-    author_email='www@ramiro.org',
+    author_email='code@ramiro.org',
     url='https://github.com/yaph/geonamescache',
     license=license,
     packages=find_packages(exclude=('tests', 'data', 'scripts')),
