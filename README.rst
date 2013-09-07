@@ -1,6 +1,11 @@
 Geonames Cache
 ==============
 
+.. image:: https://badge.fury.io/py/geonamescache.png
+        :target: http://badge.fury.io/py/geonamescache
+.. image:: https://travis-ci.org/yaph/geonamescache.png?branch=master
+        :target: https://travis-ci.org/yaph/geonamescache
+
 A Python library that provides functions to retrieve names and codes of
 continents, countries and US states as Python dictionaries.
 
