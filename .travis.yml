@@ -4,12 +4,16 @@ python:
   - "2.7"
   - "3.2"
   - "3.3"
-  # does not have headers provided, please ask https://launchpad.net/~pypy/+archive/ppa
-  # maintainers to fix their pypy-dev package.
   - "pypy"
 # command to install dependencies
 install:
   - pip install . --use-mirrors
   - pip install -r requirements.txt --use-mirrors
 # command to run tests
-script: nosetests 
+script: nosetests
+# only notify when status changes from success to failure
+notifications:
+  email:
+    recipients:
+      - code@ramiro.org
+    on_failure: change
