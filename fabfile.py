@@ -25,5 +25,10 @@ def tojson():
         local('./cities.py')
 
 
+def up():
+    dl()
+    tojson()
+
+
 def pypi():
     local('python setup.py sdist upload')
