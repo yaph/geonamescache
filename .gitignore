@@ -1,4 +1,5 @@
 data/*
+__pycache__
 
 *.py[co]
 
