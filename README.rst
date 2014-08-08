@@ -53,9 +53,22 @@ dictionaries with the requested data:
 - get_us_states_by_names()
 - get_cities_by_name(name)
 
+
+Mappers
+-------
+
+The mappers module provides function(s) to map data properties. Currently you can create a mapper that maps country properties, e. g. the `name` property to the `iso3`property, to do so you'd write the following code:
+
+    from geonamescache.mappers import country
+    mapper = country(from_key='name', to_key='iso3')
+
+    iso3 = mapper('Spain') # iso3 is assigned ESP
+
+
 TODOs
 -----
 
+- create sphinx docs
 - analyze performance of get_cities_by_name
 - call get_dataset_by_key with name of dataset, so there is no need for \*_by_names methods
 
