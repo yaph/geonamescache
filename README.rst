@@ -65,13 +65,6 @@ The mappers module provides function(s) to map data properties. Currently you ca
     iso3 = mapper('Spain') # iso3 is assigned ESP
 
 
-TODOs
------
-
-- create sphinx docs
-- analyze performance of get_cities_by_name
-- call get_dataset_by_key with name of dataset, so there is no need for \*_by_names methods
-
 Contributing
 ------------
 
