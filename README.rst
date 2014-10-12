@@ -52,6 +52,7 @@ dictionaries with the requested data:
 - get_countries_by_names()
 - get_us_states_by_names()
 - get_cities_by_name(name)
+- get_us_counties()
 
 
 Mappers
