@@ -11,9 +11,15 @@ class GeonamesCacheTestSuite(unittest.TestCase):
 
     def test_continents(self):
         continents = self.geonamescache.get_continents()
-        testdata = (('AF', 'Africa'), ('AN', 'Antarctica'), ('AS', 'Asia'),
-                 ('EU', 'Europe'), ('NA', 'North America'), ('OC', 'Oceania'),
-                 ('SA', 'South America'))
+        testdata = (
+            ('AF', 'Africa'),
+            ('AN', 'Antarctica'),
+            ('AS', 'Asia'),
+            ('EU', 'Europe'),
+            ('NA', 'North America'),
+            ('OC', 'Oceania'),
+            ('SA', 'South America')
+        )
         for code, name in testdata:
             self.assertTrue(code in continents)
             self.assertEqual(name, continents[code]['name'])
@@ -55,11 +61,13 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         for gid, name in (('3191316', 'Samobor'), ('3107112', 'Vaciamadrid')):
             self.assertEqual(name, cities[gid]['name'])
 
-    def test_get_cities_by_name(self):
+    def test_get_cities_by_name_madrid(self):
         self.assertEqual(
             2, len(self.geonamescache.get_cities_by_name('Madrid')))
 
+    def test_us_counties_len(self):
+        # make sure there are 3,144 counties
+        pass
 
 if __name__ == '__main__':
     unittest.main()
-

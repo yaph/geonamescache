@@ -4,6 +4,7 @@ from fabric.api import env, lcd, local
 env.use_ssh_config = True
 CITIES = 'http://download.geonames.org/export/dump/cities15000.zip'
 COUNTRIES = 'http://download.geonames.org/export/dump/countryInfo.txt'
+US_COUNTIES = 'http://quickfacts.census.gov/qfd/download/FIPS_CountyName.txt'
 
 
 def git():
@@ -14,6 +15,7 @@ def git():
 def dl():
     local('curl %s -o data/cities15000.zip' % CITIES)
     local('curl %s -o data/countryInfo.txt' % COUNTRIES)
+    local('curl %s -o data/us_counties.txt' % US_COUNTIES)
     with lcd('data'):
         local('unzip cities15000.zip')
 
@@ -23,6 +25,7 @@ def tojson():
         local('./continents.py')
         local('./countries.py')
         local('./cities.py')
+        local('./us_counties.py')
 
 
 def up():
