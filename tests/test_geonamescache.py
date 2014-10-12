@@ -51,8 +51,8 @@ class GeonamesCacheTestSuite(unittest.TestCase):
             self.assertTrue(code not in us_states)
 
     def test_get_countries_by_names(self):
-        # length of get_countries_by_names dict and get_countries dict must be
-        # the same, unless country names wouldn't be unique
+        # Length of get_countries_by_names dict and get_countries dict must be
+        # the same, unless country names wouldn't be unique.
         self.assertTrue(len(self.geonamescache.get_countries_by_names()),
                         len(self.geonamescache.get_countries()))
 
@@ -66,8 +66,9 @@ class GeonamesCacheTestSuite(unittest.TestCase):
             2, len(self.geonamescache.get_cities_by_name('Madrid')))
 
     def test_us_counties_len(self):
-        # make sure there are 3,144 counties
-        pass
+        # Make sure there are 3235 counties, which includes Puerto Rico etc.
+        us_counties = self.geonamescache.get_us_counties()
+        self.assertEqual(3235, len(us_counties))
 
 if __name__ == '__main__':
     unittest.main()
