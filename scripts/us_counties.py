@@ -1,22 +1,19 @@
 #!/usr/bin/env python
 # coding: utf-8
 import json
-import re
+import unicodecsv as csv
 
-re_county = re.compile(r'(\d{5})\s+([^,]+),\s+(\w{2})')
 counties = []
 
 with open('../data/us_counties.txt', 'r') as f:
-    lines = f.read().splitlines()
-
-for line in lines:
-    m = re.match(re_county, line)
-    if m:
+    r = csv.reader(f, encoding='utf-8')
+    headers = r.next()
+    for line in r:
         counties.append({
-            'fips': m.group(1),
-            'name': m.group(2),
-            'state': m.group(3)
+            'fips': line[1] + line[2],
+            'name': line[3],
+            'state': line[0]
         })
 
 with open('../geonamescache/us_counties.json', 'w') as f:
-    json.dump(counties, f, ensure_ascii=False)
+    json.dump(counties, f)

@@ -1,3 +1,4 @@
 nose
 pandas
 requests
+unicodecsv

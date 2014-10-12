@@ -4,7 +4,7 @@ from fabric.api import env, lcd, local
 env.use_ssh_config = True
 CITIES = 'http://download.geonames.org/export/dump/cities15000.zip'
 COUNTRIES = 'http://download.geonames.org/export/dump/countryInfo.txt'
-US_COUNTIES = 'http://quickfacts.census.gov/qfd/download/FIPS_CountyName.txt'
+US_COUNTIES = 'http://www.census.gov/geo/reference/codes/files/national_county.txt'
 
 
 def git():

@@ -9,7 +9,7 @@ geonamescache
 """
 
 __title__ = 'geonamescache'
-__version__ = '0.15'
+__version__ = '0.16'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2014 Ramiro Gómez'
@@ -28,6 +28,7 @@ class GeonamesCache:
     cities = None
     cities_items = None
     cities_by_names = {}
+    us_counties = None
     datadir = os.path.dirname(os.path.abspath(__file__))
 
     def get_dataset_by_key(self, dataset, key):
@@ -72,6 +73,12 @@ class GeonamesCache:
             self.cities_by_names[name] = [dict({gid: city})
                 for gid, city in self.cities_items if city['name'] == name]
         return self.cities_by_names[name]
+
+    def get_us_counties(self):
+        if self.us_counties is None:
+            self.us_counties = self._load_data(
+                self.us_counties, 'us_counties.json')
+        return self.us_counties
 
     def _load_data(self, datadict, datafile):
         if datadict is None:
