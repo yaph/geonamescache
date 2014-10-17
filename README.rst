@@ -28,7 +28,9 @@ Or, if necessary: ::
 Usage
 -----
 
-A simple usage example: ::
+A simple usage example:
+
+::
 
     import geonamescache
 
@@ -59,6 +61,8 @@ Mappers
 -------
 
 The mappers module provides function(s) to map data properties. Currently you can create a mapper that maps country properties, e. g. the ``name`` property to the ``iso3`` property, to do so you'd write the following code:
+
+::
 
     from geonamescache.mappers import country
     mapper = country(from_key='name', to_key='iso3')
