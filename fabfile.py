@@ -12,6 +12,7 @@ def git():
 
 
 def dl():
+    local('mkdir data')
     local('curl %s -o data/cities15000.zip' % CITIES)
     local('curl %s -o data/countryInfo.txt' % COUNTRIES)
     with lcd('data'):
