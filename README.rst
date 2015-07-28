@@ -62,4 +62,11 @@ Contributing
 3. Write test(s) for any new feature
 4. Push your changes and send a pull request
 
+If you wish to build the data from scratch, you can run the fabric file, fabfile.py. Before you can run this, you need to `create an account`_ in the Geonames system, then `activate your account`_ for API usage. Once you've created your account, you can run:
+
+fab dl  # Download the geonames data to the data directory
+GEONAMES_USER=<your-username-here> fab tojson  # Convert the downloaded data to json
+
 .. _`the repository`: http://github.com/yaph/geonamescache
+.. _`activate your account`: http://www.geonames.org/manageaccount
+.. _`create an account`: http://www.geonames.org/login
