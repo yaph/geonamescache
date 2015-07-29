@@ -18,15 +18,14 @@ for record in reader:
         continue
 
     cities[geonameid] = {
-        'geonameid': geonameid,
+        'geonameid': int(geonameid),
         'name': name,
-        'latitude': latitude,
-        'longitude': longitude,
+        'latitude': float(latitude),
+        'longitude': float(longitude),
         'countrycode': countrycode,
-        'population': population,
+        'population': int(population),
         'timezone': timezone
     }
 
-fcities = open('../geonamescache/cities.json', 'w')
-json.dump(cities, fcities)
-fcities.close()
+with open('../geonamescache/cities.json', 'w') as f:
+    json.dump(cities, f)

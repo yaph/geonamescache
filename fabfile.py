@@ -13,6 +13,7 @@ def git():
 
 
 def dl():
+    local('mkdir data')
     local('curl %s -o data/cities15000.zip' % CITIES)
     local('curl %s -o data/countryInfo.txt' % COUNTRIES)
     local('curl %s -o data/us_counties.txt' % US_COUNTIES)
@@ -25,13 +26,4 @@ def tojson():
         local('./continents.py')
         local('./countries.py')
         local('./cities.py')
-        local('./us_counties.py')
-
-
-def up():
-    dl()
-    tojson()
-
-
-def pypi():
-    local('python setup.py sdist upload')
+#        local('./us_counties.py')
