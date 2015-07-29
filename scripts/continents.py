@@ -30,4 +30,4 @@ for geoid in continent_ids:
         continents[cont['continentCode']] = cont
 
 with open('../geonamescache/continents.json', 'w') as f:
-    json.dump(continents, f, indent=2)
+    json.dump(continents, f)
