@@ -3,16 +3,15 @@
 geonamescache
 =============
 
-:copyright: (c) 2013 by Ramiro Gómez.
+:copyright: (c) 2015 by Ramiro Gómez.
 :license: ISC, see LICENSE for more details.
 
 """
 
 __title__ = 'geonamescache'
-__version__ = '0.9'
+__version__ = '0.10'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
-__copyright__ = 'Copyright 2013 Ramiro Gómez'
 
 
 import os
