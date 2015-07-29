@@ -37,6 +37,5 @@ for record in reader:
         'neighbours': neighbours
     }
 
-fcountries = open('../geonamescache/countries.json', 'w')
-json.dump(countries, fcountries)
-fcountries.close()
+with open('../geonamescache/countries.json', 'w') as f:
+    json.dump(countries, f, indent=2)
