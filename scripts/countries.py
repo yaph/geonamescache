@@ -38,4 +38,4 @@ for record in reader:
     }
 
 with open('../geonamescache/countries.json', 'w') as f:
-    json.dump(countries, f, indent=2)
+    json.dump(countries, f)
