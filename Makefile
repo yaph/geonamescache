@@ -11,7 +11,7 @@ help:
 	@echo "release - package and upload a release"
 
 
-clean: clean-build clean-pyc clean-starter-site clean-test
+clean: clean-build clean-pyc clean-test
 
 clean-build:
 	rm -fr build/
