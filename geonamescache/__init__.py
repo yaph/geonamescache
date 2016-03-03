@@ -9,7 +9,7 @@ geonamescache
 """
 
 __title__ = 'geonamescache'
-__version__ = '0.20'
+__version__ = '0.21'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
 

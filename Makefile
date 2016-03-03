@@ -6,6 +6,8 @@ help:
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "clean-test - remove test and coverage artifacts"
 	@echo "dist - package"
+	@echo "docs - generate Sphinx HTML documentation, including API docs"
+	@echo "docs-release - generate and upload docs to PyPI"
 	@echo "test - run tests quickly with the default Python"
 	@echo "test-all - run tests on every Python version with tox"
 	@echo "release - package and upload a release"
@@ -33,6 +35,17 @@ dist: clean
 	python setup.py sdist
 	python setup.py bdist_wheel
 
+docs:
+	rm -f docs/geonamescache.rst
+	rm -f docs/modules.rst
+	sphinx-apidoc -o docs/ geonamescache
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs html
+	firefox docs/_build/html/index.html
+
+docs-release: docs
+	python setup.py upload_docs
+
 install: clean
 	pip install -r dev_requirements.txt --use-mirrors
 	python setup.py install
@@ -42,7 +55,7 @@ release: clean
 	python setup.py bdist_wheel upload
 
 test:
-	nosetests tests
+	python setup.py test
 
 test-all:
 	tox
