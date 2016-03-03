@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from ..geonamescache import mappings
+from geonamescache import mappings
 
 
 class MappingsTestSuite(unittest.TestCase):

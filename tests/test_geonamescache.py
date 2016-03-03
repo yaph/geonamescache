@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from ..geonamescache import GeonamesCache
+from geonamescache import GeonamesCache
 
 
 class GeonamesCacheTestSuite(unittest.TestCase):
@@ -58,7 +58,7 @@ class GeonamesCacheTestSuite(unittest.TestCase):
 
     def test_get_cities_by_name(self):
         cities = self.geonamescache.get_cities()
-        for gid, name in (('3191316', 'Samobor'), ('3107112', 'Vaciamadrid')):
+        for gid, name in (('3191316', 'Samobor'), ('3107112', 'Rivas-Vaciamadrid')):
             self.assertEqual(name, cities[gid]['name'])
 
     def test_get_cities_by_name_madrid(self):
