@@ -3,7 +3,7 @@
 import csv
 import json
 
-fcsv = open('../data/countryInfo.txt', 'rb')
+fcsv = open('data/countryInfo.txt', 'r', encoding='utf-8')
 reader = csv.reader(fcsv, 'excel-tab')
 headers = next(reader)
 countries = {}
@@ -37,5 +37,5 @@ for record in reader:
         'neighbours': neighbours
     }
 
-with open('../geonamescache/countries.json', 'w') as f:
+with open('geonamescache/countries.json', 'w') as f:
     json.dump(countries, f)
