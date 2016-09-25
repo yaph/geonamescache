@@ -8,8 +8,6 @@ from geonamescache import __version__
 with io.open('README.rst', encoding='utf-8') as f:
     readme = f.read()
 
-with io.open('LICENSE', encoding='utf-8') as f:
-    license = f.read()
 
 setup(
     name='geonamescache',
@@ -19,7 +17,7 @@ setup(
     author='Ramiro Gómez',
     author_email='code@ramiro.org',
     url='https://github.com/yaph/geonamescache',
-    license=license,
+    license='MIT',
     packages=find_packages(exclude=('tests', 'data', 'scripts')),
     package_data={'': ['LICENSE']},
     include_package_data=True,
