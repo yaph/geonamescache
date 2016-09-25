@@ -21,7 +21,7 @@ setup(
     packages=find_packages(exclude=('tests', 'data', 'scripts')),
     package_data={'': ['LICENSE']},
     include_package_data=True,
-    classifiers=(
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Natural Language :: English',
@@ -35,7 +35,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Topic :: Software Development :: Libraries :: Python Modules'
-    ),
+    ],
     test_suite='tests',
     tests_require=['tox'],
 )
