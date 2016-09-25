@@ -4,7 +4,7 @@ import csv
 import json
 
 cities = {}
-fcsv = open('../data/cities15000.txt', 'r')
+fcsv = open('data/cities15000.txt', 'r')
 reader = csv.reader(fcsv, 'excel-tab')
 headers = next(reader)
 for record in reader:
@@ -27,5 +27,5 @@ for record in reader:
         'timezone': timezone
     }
 
-with open('../geonamescache/cities.json', 'w') as f:
+with open('geonamescache/cities.json', 'w') as f:
     json.dump(cities, f)

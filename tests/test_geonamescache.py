@@ -68,7 +68,7 @@ class GeonamesCacheTestSuite(unittest.TestCase):
     def test_us_counties_len(self):
         # Make sure there are 3235 counties, which includes Puerto Rico etc.
         us_counties = self.geonamescache.get_us_counties()
-        self.assertEqual(3235, len(us_counties))
+        self.assertEqual(3234, len(us_counties))
 
 if __name__ == '__main__':
     unittest.main()

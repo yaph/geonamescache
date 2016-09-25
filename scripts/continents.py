@@ -16,10 +16,12 @@ params = {
 }
 continents = {}
 
+
 def account_ok(j):
     if j.get(u'status', {}).get(u'value') == 10:
         print(j[u'status'][u'message'])
         exit(1)
+
 
 for geoid in continent_ids:
     params['geonameId'] = geoid
@@ -29,5 +31,5 @@ for geoid in continent_ids:
         account_ok(cont)
         continents[cont['continentCode']] = cont
 
-with open('../geonamescache/continents.json', 'w') as f:
+with open('geonamescache/continents.json', 'w') as f:
     json.dump(continents, f)

@@ -13,12 +13,32 @@ help:
 	@echo "release - package and upload a release"
 
 
+data/cities15000.zip:
+	curl -o data/cities15000.zip http://download.geonames.org/export/dump/cities15000.zip
+
+data/countryInfo.txt:
+	curl -o data/countryInfo.txt http://download.geonames.org/export/dump/countryInfo.txt
+
+data/us_counties.txt:
+	curl -o data/us_counties.txt http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt
+
+data/cities15000.txt: data/cities15000.zip
+	unzip data/cities15000.zip -d data
+
+dl: data/cities15000.txt data/countryInfo.txt data/us_counties.txt
+
+tojson:
+	'./scripts/continents.py'
+	'./scripts/countries.py'
+	'./scripts/cities.py'
+	'./scripts/us_counties.py'
+
 clean: clean-build clean-pyc clean-test
 
 clean-build:
 	rm -fr build/
 	rm -fr dist/
-	rm -fr *.egg-info
+	rm -fr .eggs/
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
