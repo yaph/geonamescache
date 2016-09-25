@@ -1,8 +1,8 @@
 Geonames Cache
 ==============
 
-.. image:: https://badge.fury.io/py/geonamescache.png
-        :target: http://badge.fury.io/py/geonamescache
+.. image:: https://img.shields.io/pypi/v/geonamescache.svg
+        :target: https://pypi.python.org/pypi/geonamescache
 .. image:: https://travis-ci.org/yaph/geonamescache.png?branch=master
         :target: https://travis-ci.org/yaph/geonamescache
 
