@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: clean docs
 
 help:
 	@echo "clean - remove all build, test, coverage and Python artifacts"
