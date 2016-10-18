@@ -6,11 +6,9 @@ Geonames Cache
 .. image:: https://travis-ci.org/yaph/geonamescache.png?branch=master
         :target: https://travis-ci.org/yaph/geonamescache
 
-A Python library that provides functions to retrieve names and codes of
-continents, countries and US states as Python dictionaries.
+A Python library that provides functions to retrieve names, ISO and FIPS codes of continents, countries as well as US states and counties as Python dictionaries. The country and city datasets also include population and geographic data.
 
-Geonames data is obtained from `GeoNames
-<http://www.geonames.org/>`_.
+Geonames data is obtained from `GeoNames <http://www.geonames.org/>`_.
 
 
 Installation
