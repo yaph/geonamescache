@@ -13,23 +13,31 @@ help:
 	@echo "release - package and upload a release"
 
 
-data/cities15000.zip:
-	curl -o data/cities15000.zip http://download.geonames.org/export/dump/cities15000.zip
+data/cities1000.zip:
+	curl -o data/cities1000.zip http://download.geonames.org/export/dump/cities1000.zip
 
 data/countryInfo.txt:
 	curl -o data/countryInfo.txt http://download.geonames.org/export/dump/countryInfo.txt
 
+data/admin1CodesASCII.txt:
+	curl -o data/admin1CodesASCII.txt http://download.geonames.org/export/dump/admin1CodesASCII.txt
+
+data/admin2Codes.txt:
+	curl -o data/admin2Codes.txt http://download.geonames.org/export/dump/admin2Codes.txt
+
 data/us_counties.txt:
-	curl -o data/us_counties.txt http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt
+	curl -o data/us_counties.txt https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt
 
-data/cities15000.txt: data/cities15000.zip
-	unzip data/cities15000.zip -d data
+data/cities1000.txt: data/cities1000.zip
+	unzip data/cities1000.zip -d data
 
-dl: data/cities15000.txt data/countryInfo.txt data/us_counties.txt
+dl: data/cities1000.txt data/countryInfo.txt data/admin1CodesASCII.txt data/us_counties.txt data/admin2Codes.txt
 
 tojson:
-	'./scripts/continents.py'
+	#'./scripts/continents.py'
 	'./scripts/countries.py'
+	'./scripts/admin_level_1.py'
+	'./scripts/admin_level_2.py'
 	'./scripts/cities.py'
 	'./scripts/us_counties.py'
 
