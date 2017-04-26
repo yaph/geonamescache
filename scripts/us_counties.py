@@ -5,7 +5,7 @@ import csv
 
 counties = []
 
-with open('data/us_counties.txt', 'r', encoding='utf-8') as f:
+with open('data/us_counties.txt', 'r') as f:
     r = csv.reader(f)
     headers = next(r)
     for line in r:

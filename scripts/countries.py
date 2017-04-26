@@ -3,7 +3,7 @@
 import csv
 import json
 
-fcsv = open('data/countryInfo.txt', 'r', encoding='utf-8')
+fcsv = open('data/countryInfo.txt', 'r')
 reader = csv.reader(fcsv, 'excel-tab')
 headers = next(reader)
 countries = {}
