@@ -28,6 +28,26 @@ def _get_resolution(data):
         return ResolutionTypes.COUNTRY
     raise ValueError
 
+def _already_has_city(orig_data, proc_data, locations):
+    """
+    Some cities appear as both a 'node' and a 'relation'. Check if we already saw the city,
+    so that we can keep just the first (node) entry.
+    """
+    city_name = orig_data['city']
+    if not city_name:
+        return False
+
+    if orig_data['class'] == 'boundary' and orig_data['type'] == 'administrative':
+        existing_cities = [
+            loc for loc in locations[city_name] if loc['resolution'] == ResolutionTypes.CITY
+        ]
+        return any(
+            all(candidate[field] == proc_data[field] for field in ('city', 'admin1', 'admin2'))
+            for candidate in existing_cities
+        )
+
+    return False
+
 def _load_data():
     locations = defaultdict(list)
 
@@ -53,6 +73,10 @@ def _load_data():
                 admin1=_fix_loc_name_str(loc_info['state']),
                 country=_fix_loc_name_str(loc_info['country']),
             )
+
+            if _already_has_city(loc_info, data, locations):
+                continue
+
             ascii_alt_names = [
                 name for name in loc_info['alternative_names'].split(',')
                 if all(ord(c) < 128 for c in name)
