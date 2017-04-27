@@ -129,7 +129,7 @@ def _get_wikipedia(search_term, sub_term=None):
     assert len(first_headings) == 1
     names.append(first_headings[0].text)
     names = set(name.split(',')[0].split('(')[0].strip() for name in names)
-    names.discard(search_term)
+    names.discard(unicode(search_term, 'utf8'))
 
     return {
         'concept' : page_name,
@@ -137,7 +137,7 @@ def _get_wikipedia(search_term, sub_term=None):
         'all_names': [name.encode('utf8') for name in names],
     }
 
-def search(query, country=None):
+def search(query):
     result = _get_wikipedia(query)
 
     if not result:
@@ -189,6 +189,8 @@ def run(in_filename, out_filename, has_header_row):
     """
     Find the alternate names of locations in the input file and write them to the output file.
     """
+    count = 0
+
     with open(in_filename) as f:
         reader = csv.reader(f, delimiter='\t')
         if has_header_row:
@@ -211,6 +213,9 @@ def run(in_filename, out_filename, has_header_row):
 
                 out.write('\t'.join([name] + found_names) + '\n')
                 out.flush()
+                count += 1
+                if count % 100 == 0:
+                    print count
 
 if __name__ == '__main__':
     try:
