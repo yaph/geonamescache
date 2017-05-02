@@ -13,9 +13,9 @@ from utils import (
 def load_data():
     data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 
-    alt_names_by_osm_id = _load_alt_names_if_possible(os.path.join(data_dir, 'alt_wiki_names.tsv'))
+    alt_names_by_id = _load_alt_names_if_possible(os.path.join(data_dir, 'alt_wiki_names.tsv'))
     locations_by_name, locations_by_id = _load_main_data(
-        os.path.join(data_dir, 'osm_data.tsv'), alt_names_by_osm_id
+        os.path.join(data_dir, 'osm_data.tsv'), alt_names_by_id
     )
     _add_state_abbreviations(os.path.join(data_dir, 'us_states.tsv'), locations_by_name)
     _add_missing_countries(
@@ -26,9 +26,9 @@ def load_data():
     return locations_by_name, locations_by_id
 
 def _load_alt_names_if_possible(filepath):
-    alt_names_by_osm_id = defaultdict(list)
+    alt_names_by_id = defaultdict(list)
     if not os.path.isfile(filepath):
-        return alt_names_by_osm_id
+        return alt_names_by_id
 
     with open(filepath) as alt_names_file:
         csv_reader = csv.reader(alt_names_file, delimiter='\t')
@@ -36,12 +36,12 @@ def _load_alt_names_if_possible(filepath):
             assert len(row) >= 3
             osm_id = int(row[0])
             alt_names = row[2:]
-            assert not alt_names_by_osm_id[osm_id]
-            alt_names_by_osm_id[osm_id] = alt_names
+            assert not alt_names_by_id[osm_id]
+            alt_names_by_id[osm_id] = alt_names
 
-    return alt_names_by_osm_id
+    return alt_names_by_id
 
-def _load_main_data(filepath, alt_names_by_osm_id):
+def _load_main_data(filepath, alt_names_by_id):
     locations_by_name = defaultdict(dict)
     locations_by_id = {}
 
@@ -67,8 +67,8 @@ def _load_main_data(filepath, alt_names_by_osm_id):
                 longitude=float(loc_info['lon']),
                 importance=importance,
                 city=standardize_loc_name(loc_info['city']),
-                admin2=standardize_loc_name(loc_info['county']),
-                admin1=standardize_loc_name(loc_info['state']),
+                admin_level_2=standardize_loc_name(loc_info['county']),
+                admin_level_1=standardize_loc_name(loc_info['state']),
                 country=standardize_loc_name(loc_info['country']),
                 country_code=loc_info['country_code'].upper(),
             )
@@ -80,7 +80,7 @@ def _load_main_data(filepath, alt_names_by_osm_id):
                 name for name in loc_info['alternative_names'].split(',')
                 if all(ord(c) < 128 for c in name)
             ]
-            alt_wiki_names = alt_names_by_osm_id[data['id']]
+            alt_wiki_names = alt_names_by_id[data['id']]
             alt_punc_name = get_alt_punc_names(loc_info['name'])
 
             all_names = set(
@@ -110,7 +110,7 @@ def _should_skip_location(loc_data, locations_by_name):
     for other_location in locations_by_name[loc_data['name']].itervalues():
         if all(
             other_location[field] == loc_data[field]
-            for field in ('name', 'city', 'admin1', 'admin2', 'country')
+            for field in ('name', 'city', 'admin_level_1', 'admin_level_2', 'country')
         ):
             # Some locations appear as twice in the data set. If we already saw a location with
             # the same location identifiers, just the keep the first (most important) entry.
@@ -140,7 +140,7 @@ def _add_state_abbreviations(filepath, locations_by_name):
             for candidate in locations_by_name[state].itervalues():
                 if (
                     candidate['resolution'] == ResolutionTypes.ADMIN_1 and
-                    candidate['admin1'] == state and
+                    candidate['admin_level_1'] == state and
                     candidate['country_code'] == u'US'
                 ):
                     for abbrev_name in (abbrev, '%s.%s.' % (abbrev[0], abbrev[1])):
@@ -187,11 +187,11 @@ def _assign_parent_loc_ids(locations_by_name, locations_by_id):
         location['country_id'] = country_code_to_id.get(location['country_code'])
 
         if location['resolution'] in (ResolutionTypes.CITY, ResolutionTypes.ADMIN_2):
-            location['admin1_id'] = _find_admin_id(
+            location['admin_level_1_id'] = _find_admin_id(
                 locations_by_name, location, ResolutionTypes.ADMIN_1
             )
         if location['resolution'] == ResolutionTypes.CITY:
-            location['admin2_id'] = _find_admin_id(
+            location['admin_level_2_id'] = _find_admin_id(
                 locations_by_name, location, ResolutionTypes.ADMIN_2
             )
 
@@ -203,9 +203,9 @@ def _find_admin_id(locations_by_name, location, resolution):
     """
     assert resolution in (ResolutionTypes.ADMIN_1, ResolutionTypes.ADMIN_2)
     if resolution == ResolutionTypes.ADMIN_1:
-        admin_name = location['admin1']
+        admin_name = location['admin_level_1']
     else:
-        admin_name = location['admin2']
+        admin_name = location['admin_level_2']
 
     if not admin_name:
         return 0
@@ -215,7 +215,7 @@ def _find_admin_id(locations_by_name, location, resolution):
         if (
             loc['resolution'] == resolution and
             loc['name'] == admin_name and
-            loc['admin1'] == location['admin1'] and
+            loc['admin_level_1'] == location['admin_level_1'] and
             loc['country_code'] == location['country_code']
         )
     ]

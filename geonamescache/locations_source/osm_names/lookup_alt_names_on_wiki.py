@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import csv
+import json
 import pdb
 import requests
 import sys
@@ -10,6 +11,7 @@ from collections import defaultdict
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, CData, Comment
 
+import utils
 import osm_names
 
 def text_attrs(base):
@@ -111,14 +113,19 @@ def _get_wikipedia(search_term):
         if redirects_here_match:
             names.append(redirects_here_match.groups()[0])
 
-    names = set(name.split('(')[0].strip() for name in names)
-    names.discard(unicode(search_term, 'utf8'))
+    names = set(fix_name(name) for name in names)
+    names.discard(utils.standardize_loc_name(search_term))
 
     return {
         'concept' : page_name,
         'redirected_from' : redirected_from,
-        'alt_names': [name.encode('utf8') for name in names],
+        'alt_names': list(names),
     }
+
+def fix_name(name):
+    name = name.split('(')[0].strip()
+    name = name.split(',')[0].strip()
+    return utils.standardize_loc_name(name)
 
 def search(query):
     result = _get_wikipedia(query)
@@ -173,44 +180,59 @@ def run(out_filename):
     Find the alternate names of locations in the osm dataset and write them to the output file.
     """
     locations_by_name, locations_by_id = osm_names.load_data()
+    alt_names_found = {}
+    misses = [0] * 4
+    hits = 0
+
+    for i, (name, locations_with_name) in enumerate(locations_by_name.iteritems()):
+        if not locations_with_name:
+            continue
+
+        if (i + 1) % 100 == 0:
+            print 'Search number', i
+            print misses, hits
+            # Write to file just in case job breaks
+            with open(out_filename, 'w') as out:
+                json.dump(alt_names_found, out)
+
+        most_important_loc = max(
+            locations_with_name.itervalues(),
+            key=lambda loc: loc['importance']
+        )
+        if name != most_important_loc['name']:
+            # We will perform the search for this location only when we iterate across its
+            # proper name.
+            misses[0] += 1
+            continue
+
+        if most_important_loc['importance'] < .6 and any(
+            loc['importance'] + .1 > most_important_loc['importance']
+            for loc in locations_with_name.itervalues()
+            if loc['country_code'] != most_important_loc['country_code']
+        ):
+            # Skip the search if we are not confident this name belongs to the most important
+            # location
+            misses[1] += 1
+            continue
+
+        result = search(name)
+        if result is None:
+            print 'Warning: could not fetch results for ', name
+        if not result:
+            misses[2] += 1
+            continue
+
+        found_names = result['alt_names']
+        if not found_names:
+            misses[3] += 1
+            continue
+
+        hits += 1
+        alt_names_found[most_important_loc['id']] = found_names
 
     with open(out_filename, 'w') as out:
-        for i, (name, locations_with_name) in enumerate(locations_by_name.iteritems()):
-            if not locations_with_name:
-                continue
-            if i % 1000 == 0:
-                print 'Search name', i
+        json.dump(alt_names_found, out)
 
-            most_important_loc = max(
-                locations_with_name.itervalues(),
-                key=lambda loc: loc['importance']
-            )
-            if name != most_important_loc['name']:
-                # We will perform the search for this location only when we iterate across its
-                # proper name.
-                continue
-
-            if most_important_loc['importance'] < .6 and any(
-                loc['importance'] + .1 > most_important_loc['importance']
-                for loc in locations_with_name.itervalues()
-                if loc['country_code'] != most_important_loc['country_code']
-            ):
-                # Skip the search if we are not confident this name belongs to the most important
-                # location
-                continue
-
-            result = search(name)
-            if result is None:
-                print 'Warning: could not fetch results for ', name
-            if not result:
-                continue
-
-            found_names = result['alt_names']
-            if not found_names:
-                continue
-
-            out.write('\t'.join([str(most_important_loc['id']), name] + found_names) + '\n')
-            out.flush()
 
 if __name__ == '__main__':
     try:
