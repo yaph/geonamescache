@@ -1,2 +1,5 @@
 include README.rst LICENSE
 recursive-include geonamescache *.json
+recursive-include geonamescache *.tsv
+recursive-include geonamescache *.csv
+recursive-include geonamescache *.txt
