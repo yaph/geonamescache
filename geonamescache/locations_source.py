@@ -52,15 +52,20 @@ class LocationsSource(object):
             continents, 'continents.json')
         return continents
 
-    def city_search(self, city_name):
-        city_name = re.sub(r'^N\.?Y\.?C\.?$', 'New York City', city_name, flags=re.IGNORECASE)
-        city_name = re.sub(r'^City\s+Of\s+', '', city_name, flags=re.IGNORECASE)
+    def _city_search(self, city_name):
         city_name = standardize_loc_name(city_name)
-
         return dict(
             (id_, loc.copy()) for id_, loc in self._locations_by_name[city_name].iteritems()
             if loc['resolution'] == ResolutionTypes.CITY
         )
+
+    def city_search(self, city_name):
+        city_name = re.sub(r'^N\.?Y\.?C\.?$', 'New York City', city_name, flags=re.IGNORECASE)
+        city_name = re.sub(r'^City\s+Of\s+', '', city_name, flags=re.IGNORECASE)
+        locations = self._city_search(city_name)
+        if not re.search(r'\bcity$', city_name, flags=re.IGNORECASE):
+            locations.update(self._city_search('%s City' % city_name))
+        return locations
 
     def admin_level_1_search(self, admin1_name):
         admin1_name = standardize_loc_name(admin1_name)
@@ -78,7 +83,8 @@ class LocationsSource(object):
 
     def admin_level_2_search(self, admin2_name):
         locations = self._admin_level_2_search(admin2_name)
-        locations.update(self._admin_level_2_search('%s County' % admin2_name))
+        if not re.search(r'\bcounty$', admin2_name, flags=re.IGNORECASE):
+            locations.update(self._admin_level_2_search('%s County' % admin2_name))
         return locations
 
     US_RE = re.compile(r'^(u\.?s\.?a\.?|u\.s\.?)$', flags=re.IGNORECASE)

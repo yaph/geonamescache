@@ -224,6 +224,7 @@ def run(out_filename):
                 loc.get('population', 0) for loc in locations_with_name.values()
             )
             misses[0] += 1
+            continue
 
         result = search(name)
         if result is None:
