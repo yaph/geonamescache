@@ -13,7 +13,7 @@ from utils import (
 def load_data():
     data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 
-    alt_names_by_id = _load_alt_names_if_possible(os.path.join(data_dir, 'alt_wiki_names.tsv'))
+    alt_names_by_id = _load_alt_names_if_possible(os.path.join(data_dir, 'alt_wiki_names.json'))
     locations_by_name, locations_by_id = _load_main_data(
         os.path.join(data_dir, 'osm_data.tsv'), alt_names_by_id
     )
@@ -23,6 +23,8 @@ def load_data():
     )
     _assign_parent_loc_ids(locations_by_name, locations_by_id)
 
+    del locations_by_name['']
+
     return locations_by_name, locations_by_id
 
 def _load_alt_names_if_possible(filepath):
@@ -31,13 +33,10 @@ def _load_alt_names_if_possible(filepath):
         return alt_names_by_id
 
     with open(filepath) as alt_names_file:
-        csv_reader = csv.reader(alt_names_file, delimiter='\t')
-        for row in csv_reader:
-            assert len(row) >= 3
-            osm_id = int(row[0])
-            alt_names = row[2:]
-            assert not alt_names_by_id[osm_id]
-            alt_names_by_id[osm_id] = alt_names
+        alt_names_by_id_copy = json.load(alt_names_file)
+        for id_, alt_names in alt_names_by_id_copy.iteritems():
+            assert int(id_) not in alt_names_by_id
+            alt_names_by_id[int(id_)] = alt_names
 
     return alt_names_by_id
 
