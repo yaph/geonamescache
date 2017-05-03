@@ -9,9 +9,9 @@ class LocationsSource(object):
 
     """
     Allows search for locations by name or id.
-    
+
     Returns results of the form
-    
+
     {
         id: {
             id: int,
@@ -39,6 +39,18 @@ class LocationsSource(object):
             self._locations_by_name, self._locations_by_id = osm_names.load_data()
         else:
             self._locations_by_name, self._locations_by_id = geonames.load_data()
+
+    def _load_data(self, datadict, datafile):
+        if datadict is None:
+            with open(os.path.join(self.datadir, datafile), 'r') as f:
+                datadict = json.load(f)
+        return datadict
+
+    def get_continents(self):
+        continents = {}
+        continents = self._load_data(
+            continents, 'continents.json')
+        return continents
 
     def city_search(self, city_name):
         city_name = re.sub(r'^N\.?Y\.?C\.?$', 'New York City', city_name, flags=re.IGNORECASE)
