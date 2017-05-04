@@ -22,6 +22,7 @@ def load_data():
         os.path.join(data_dir, 'countries.json'), locations_by_name, locations_by_id
     )
     _assign_parent_loc_ids(locations_by_name, locations_by_id)
+    _add_fixed_alt_names(locations_by_name)
 
     del locations_by_name['']
 
@@ -29,7 +30,7 @@ def load_data():
 
 def _load_alt_names_if_possible(filepath):
     alt_names_by_id = defaultdict(list)
-    if not os.path.isfile(filepath):
+    if not os.path.isfile(filepath) or True:
         return alt_names_by_id
 
     with open(filepath) as alt_names_file:
@@ -50,17 +51,19 @@ def _load_main_data(filepath, alt_names_by_id):
         last_importance = 1.
 
         for row in csv_reader:
-            if len(row) != 23:
-                continue
             assert len(row) == 23
             loc_info = dict(zip(keys, row))
             importance = float(loc_info['importance'])
             assert importance <= last_importance
             last_importance = importance
 
+            resolution = _get_resolution(loc_info)
+            if not resolution:
+                continue
+
             data = dict(
                 id=int(loc_info['osm_id']),
-                resolution=_get_resolution(loc_info),
+                resolution=resolution,
                 name=standardize_loc_name(loc_info['name']),
                 latitude=float(loc_info['lat']),
                 longitude=float(loc_info['lon']),
@@ -95,15 +98,29 @@ def _load_main_data(filepath, alt_names_by_id):
     return locations_by_name, locations_by_id
 
 def _get_resolution(data):
-    if data['city']:
-        return ResolutionTypes.CITY
-    if data['county']:
-        return ResolutionTypes.ADMIN_2
-    if data['state']:
-        return ResolutionTypes.ADMIN_1
-    if data['country']:
-        return ResolutionTypes.COUNTRY
-    raise ValueError
+    for res_name, resolution in (
+        (data['city'], ResolutionTypes.CITY),
+        (data['county'], ResolutionTypes.ADMIN_2),
+        (data['state'], ResolutionTypes.ADMIN_1),
+        (data['country'], ResolutionTypes.COUNTRY),
+    ):
+        if res_name:
+            if data['name'] != res_name:
+                # Location name does not match the highest resolution field.
+                if resolution == ResolutionTypes.COUNTRY:
+                    # There are some unusual results here; ignore them.
+                    return None
+                if resolution == ResolutionTypes.CITY:
+                    # The city name seems generally more accurate, make the location name the
+                    # city name.
+                    data['name'] = data['city']
+                else:
+                    # Otherwise, assume this location is a city.
+                    data['city'] = data['name']
+                return ResolutionTypes.CITY
+            return resolution
+
+    raise ValueError("Location is missing names for all location levels")
 
 def _should_skip_location(loc_data, locations_by_name):
     for other_location in locations_by_name[loc_data['name']].itervalues():
@@ -115,14 +132,17 @@ def _should_skip_location(loc_data, locations_by_name):
             # the same location identifiers, just the keep the first (most important) entry.
             return True
 
-    if (
-        loc_data['resolution'] == ResolutionTypes.COUNTRY and
-        loc_data['name'] != loc_data['country']
-    ):
-        # Some non-country locations appear with no city, admin1, or admin2 values. Remove these
-        # to prevent them from being confused with countries.
-        return True
-
+        if (
+            loc_data['resolution'] == ResolutionTypes.CITY and
+            other_location['resolution'] == ResolutionTypes.CITY and
+            all(
+                loc_data[field] == other_location[field] or not loc_data[field]
+                for field in ('name', 'city', 'admin_level_1', 'admin_level_2', 'country')
+            )
+        ):
+            # Some cities appear as less specific versions of previous cities. Again just keep
+            # the first entry.
+            return True
     return False
 
 def _add_state_abbreviations(filepath, locations_by_name):
@@ -227,4 +247,27 @@ def _find_admin_id(locations_by_name, location, resolution):
         # There are multiple possibilities for the admin.
         # (This occurred only once in my testing.)
         return 0
+
+def _add_fixed_alt_names(locations_by_name):
+    for real_name, alt_names, resolution in (
+        (
+            'United States of America',
+            ('USA', 'U.S.A.', 'US', 'U.S.', 'the United States'),
+            ResolutionTypes.COUNTRY
+        ),
+        ('United Kingdom', ('Great Britain', 'Britain', 'UK', 'U.K.'), ResolutionTypes.COUNTRY),
+        ('South Korea', ('Korea',), ResolutionTypes.COUNTRY),
+        ('North Korea', ('Korea',), ResolutionTypes.COUNTRY),
+        ('The Netherlands', ('Netherlands', 'Holland',), ResolutionTypes.COUNTRY),
+        ('New York City', ('NYC', 'N.Y.C.'), ResolutionTypes.CITY),
+    ):
+        locations = [
+            loc for loc in locations_by_name[standardize_loc_name(real_name)].itervalues()
+            if loc['resolution'] == resolution
+        ]
+        assert len(locations) == 1
+        location = locations[0]
+
+        for alt_name in alt_names:
+            locations_by_name[standardize_loc_name(alt_name)][location['id']] = location
 

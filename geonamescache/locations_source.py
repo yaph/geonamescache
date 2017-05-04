@@ -40,32 +40,19 @@ class LocationsSource(object):
         else:
             self._locations_by_name, self._locations_by_id = geonames.load_data()
 
-    def _load_data(self, datadict, datafile):
-        if datadict is None:
-            with open(os.path.join(self.datadir, datafile), 'r') as f:
-                datadict = json.load(f)
-        return datadict
-
     def get_continents(self):
-        continents = {}
-        continents = self._load_data(
-            continents, 'continents.json')
-        return continents
+        return (
+            u'Antarctica', u'North America', u'South America', u'Central America', u'Oceania',
+            u'Africa', u'Asia', u'Europe', u'Middle East'
+        )
 
-    def _city_search(self, city_name):
+    def city_search(self, city_name):
+        city_name = re.sub(r'^City\s+Of\s+', '', city_name, flags=re.IGNORECASE)
         city_name = standardize_loc_name(city_name)
         return dict(
             (id_, loc.copy()) for id_, loc in self._locations_by_name[city_name].iteritems()
             if loc['resolution'] == ResolutionTypes.CITY
         )
-
-    def city_search(self, city_name):
-        city_name = re.sub(r'^N\.?Y\.?C\.?$', 'New York City', city_name, flags=re.IGNORECASE)
-        city_name = re.sub(r'^City\s+Of\s+', '', city_name, flags=re.IGNORECASE)
-        locations = self._city_search(city_name)
-        if not re.search(r'\bcity$', city_name, flags=re.IGNORECASE):
-            locations.update(self._city_search('%s City' % city_name))
-        return locations
 
     def admin_level_1_search(self, admin1_name):
         admin1_name = standardize_loc_name(admin1_name)
@@ -74,31 +61,15 @@ class LocationsSource(object):
             if loc['resolution'] == ResolutionTypes.ADMIN_1
         )
 
-    def _admin_level_2_search(self, admin2_name):
+    def admin_level_2_search(self, admin2_name):
         admin2_name = standardize_loc_name(admin2_name)
         return dict(
             (id_, loc.copy()) for id_, loc in self._locations_by_name[admin2_name].iteritems()
             if loc['resolution'] == ResolutionTypes.ADMIN_2
         )
 
-    def admin_level_2_search(self, admin2_name):
-        locations = self._admin_level_2_search(admin2_name)
-        if not re.search(r'\bcounty$', admin2_name, flags=re.IGNORECASE):
-            locations.update(self._admin_level_2_search('%s County' % admin2_name))
-        return locations
-
-    US_RE = re.compile(r'^(u\.?s\.?a\.?|u\.s\.?)$', flags=re.IGNORECASE)
-    BRITAIN_RE = re.compile(r'^(england|britain|u\.?k\.?)$', flags=re.IGNORECASE)
-
     def country_search(self, country_name):
-        if LocationsSource.US_RE.search(country_name):
-            country_name = u'United States'
-        elif LocationsSource.BRITAIN_RE.search(country_name):
-            country_name = u'United Kingdom'
-        elif country_name == u'Holland':
-            country_name = u'Netherlands'
         country_name = standardize_loc_name(country_name)
-
         return dict(
             (id_, loc.copy()) for id_, loc in self._locations_by_name[country_name].iteritems()
             if loc['resolution'] == ResolutionTypes.COUNTRY

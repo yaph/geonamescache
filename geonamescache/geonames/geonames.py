@@ -32,6 +32,7 @@ def load_data():
         os.path.join(data_dir, 'cities1000.txt'), locations_by_name, locations_by_id,
         alt_names_by_id, countries_by_code, admin1_by_code, admin2_by_code
     )
+    _add_fixed_alt_names(locations_by_name)
 
     del locations_by_name['']
 
@@ -73,6 +74,7 @@ def _load_country_data(filepath, locations_by_name, locations_by_id, alt_names_b
             )
 
             for name in set(
+                standardize_loc_name(alt_name) for alt_name in
                 [standard_name] + get_alt_punc_names(standard_name) + alt_names_by_id[geoname_id]
             ):
                 locations_by_name[name][geoname_id] = data
@@ -105,6 +107,7 @@ def _load_admin1_data(
             )
 
             for name in set(
+                standardize_loc_name(alt_name) for alt_name in
                 [standard_name] + get_alt_punc_names(standard_name) + alt_names_by_id[geoname_id]
             ):
                 locations_by_name[name][geoname_id] = data
@@ -149,6 +152,7 @@ def _load_admin2_data(
             )
 
             for name in set(
+                standardize_loc_name(alt_name) for alt_name in
                 [standard_name] + get_alt_punc_names(standard_name) + alt_names_by_id[geoname_id]
             ):
                 locations_by_name[name][geoname_id] = data
@@ -192,10 +196,34 @@ def _load_city_data(
             )
 
             for name in set(
+                standardize_loc_name(alt_name) for alt_name in
                 [standard_name] + get_alt_punc_names(standard_name) + alt_names_by_id[geoname_id]
             ):
                 locations_by_name[name][geoname_id] = data
             assert geoname_id not in locations_by_id
             locations_by_id[geoname_id] = data
 
+def _add_fixed_alt_names(locations_by_name):
+    for real_name, alt_names, resolution in (
+        (
+            'United States',
+            ('USA', 'U.S.A.', 'US', 'U.S.', 'the United States', 'United States of America'),
+            ResolutionTypes.COUNTRY
+        ),
+        ('United Kingdom', ('Great Britain', 'Britain', 'UK', 'U.K.'), ResolutionTypes.COUNTRY),
+        ('South Korea', ('Korea',), ResolutionTypes.COUNTRY),
+        ('North Korea', ('Korea',), ResolutionTypes.COUNTRY),
+        ('Netherlands', ('The Netherlands', 'Holland',), ResolutionTypes.COUNTRY),
+        ('New York City', ('NYC', 'N.Y.C.'), ResolutionTypes.CITY),
+    ):
+        locations = [
+            loc for loc in locations_by_name[standardize_loc_name(real_name)].itervalues()
+            if loc['resolution'] == resolution
+        ]
+        assert len(locations) == 1
+        location = locations[0]
 
+        for alt_name in alt_names:
+            if location['id'] in locations_by_name[standardize_loc_name(alt_name)]:
+                print 'Already have alternate name %s for %s' % (alt_name, real_name)
+            locations_by_name[standardize_loc_name(alt_name)][location['id']] = location
