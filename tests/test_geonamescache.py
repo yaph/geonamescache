@@ -70,5 +70,6 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         us_counties = self.geonamescache.get_us_counties()
         self.assertEqual(3234, len(us_counties))
 
+
 if __name__ == '__main__':
     unittest.main()

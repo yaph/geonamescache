@@ -20,10 +20,11 @@ data/countryInfo.txt:
 	curl -o data/countryInfo.txt http://download.geonames.org/export/dump/countryInfo.txt
 
 data/us_counties.txt:
-	curl -o data/us_counties.txt http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt
+	curl -o data/us_counties.txt https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt
 
 data/cities15000.txt: data/cities15000.zip
 	unzip data/cities15000.zip -d data
+	rm data/cities15000.zip
 
 dl: data/cities15000.txt data/countryInfo.txt data/us_counties.txt
 
@@ -39,6 +40,7 @@ clean-build:
 	rm -fr build/
 	rm -fr dist/
 	rm -fr .eggs/
+	rm -fr *.egg-info/
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
