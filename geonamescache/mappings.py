@@ -7,6 +7,7 @@ country_names = {
     'Brunei Darussalam': 'Brunei',
     'Burma': 'Myanmar',
     'Cape Verde Islands': 'Cape Verde',
+    'Czech Republic': 'Czechia',
     'China, Hong Kong SAR': 'Hong Kong',
     'China, Macao SAR': 'Macao',
     'Congo': 'Republic of the Congo',
