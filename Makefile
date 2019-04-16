@@ -72,7 +72,10 @@ install: clean
 	pip install -r dev_requirements.txt --use-mirrors
 	python setup.py install
 
+# Call example: make release version=1.0.3
 release: clean
+	git tag -a $(version) -m 'Create version $(version)'
+	git push --tags
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 
