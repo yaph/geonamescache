@@ -76,8 +76,7 @@ install: clean
 release: clean
 	git tag -a $(version) -m 'Create version $(version)'
 	git push --tags
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+	twine upload dist/*
 
 test:
 	python setup.py test
