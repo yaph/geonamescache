@@ -78,4 +78,4 @@ Contributing
 
 If you wish to build the data from scratch, run ``make dl`` and ``make tojson``.
 
-.. _`the repository`: http://github.com/yaph/geonamescache
+.. _`the repository`: https://github.com/yaph/geonamescache
