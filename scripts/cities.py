@@ -24,7 +24,8 @@ for record in reader:
         'longitude': float(longitude),
         'countrycode': countrycode,
         'population': int(population),
-        'timezone': timezone
+        'timezone': timezone,
+        'admin1code': admin1code,
     }
 
 with open('geonamescache/cities.json', 'w') as f:
