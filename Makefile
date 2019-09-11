@@ -73,7 +73,7 @@ install: clean
 	python setup.py install
 
 # Call example: make release version=1.1.0
-release: clean
+release: clean dist
 	git tag -a $(version) -m 'Create version $(version)'
 	git push --tags
 	twine upload dist/*
