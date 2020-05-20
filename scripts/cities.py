@@ -26,6 +26,7 @@ for record in reader:
         'population': int(population),
         'timezone': timezone,
         'admin1code': admin1code,
+        'alternatenames': alternatenames.split(',')
     }
 
 with open('geonamescache/cities.json', 'w') as f:
