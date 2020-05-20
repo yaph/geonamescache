@@ -72,7 +72,7 @@ install: clean
 	pip install -r requirements.txt --use-mirrors
 	python setup.py install
 
-# Call example: make release version=1.1.0
+# Call example: make release version=1.2.0
 release: clean dist
 	git tag -a $(version) -m 'Create version $(version)'
 	git push --tags
