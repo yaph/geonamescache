@@ -79,6 +79,15 @@ class GeonamesCache:
                 self.us_counties, 'us_counties.json')
         return self.us_counties
 
+    def search_cities(self, query, attribute='alternatenames'):
+        """Search all city records and return list of records, that match query for given attribute."""
+
+        results = []
+        for key, record in self.get_cities().items():
+            if query in record[attribute]:
+                results.append(record)
+        return results
+
     def _load_data(self, datadict, datafile):
         if datadict is None:
             with open(os.path.join(self.datadir, datafile), 'r') as f:
