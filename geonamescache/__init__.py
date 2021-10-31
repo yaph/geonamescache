@@ -79,13 +79,27 @@ class GeonamesCache:
                 self.us_counties, 'us_counties.json')
         return self.us_counties
 
-    def search_cities(self, query, attribute='alternatenames'):
+    def search_cities(self, query, attribute='alternatenames', case_sensitive=True):
         """Search all city records and return list of records, that match query for given attribute."""
 
         results = []
         for key, record in self.get_cities().items():
-            if query in record[attribute]:
-                results.append(record)
+            if case_sensitive:
+                if query in record[attribute]:
+                    results.append(record)
+            else:
+                lower_func = "casefold" if hasattr("", "casefold") else "lower"
+                if isinstance(record[attribute], list):
+                    if any(
+                        getattr(query, lower_func)() == getattr(value, lower_func)()
+                        for value in record[attribute]
+                    ):
+                        results.append(record)
+                elif (
+                    getattr(query, lower_func)()
+                    in getattr(record[attribute], lower_func)()
+                ):
+                    results.append(record)
         return results
 
     def _load_data(self, datadict, datafile):
