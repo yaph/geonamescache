@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Get continent data oincluding bounding boxes and centroids for and store it
+# Get continent data including bounding boxes and centroids for and store it
 # in json file keyed by continentCode.
 import os
 import json
