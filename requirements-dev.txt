@@ -3,6 +3,5 @@ flake8
 ipython
 ipdb
 pytest
-tox
 twine
 wheel

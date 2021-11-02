@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-geonamescache
-=============
-
-:copyright: (c) 2018 by Ramiro Gómez.
-:license: ISC, see LICENSE for more details.
-
-"""
-
 __title__ = 'geonamescache'
-__version__ = '1.2.0'
+__version__ = '1.3.0'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
 
