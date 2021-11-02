@@ -3,8 +3,6 @@ Geonames Cache
 
 .. image:: https://img.shields.io/pypi/v/geonamescache.svg
         :target: https://pypi.python.org/pypi/geonamescache
-.. image:: https://travis-ci.org/yaph/geonamescache.png?branch=master
-        :target: https://travis-ci.org/yaph/geonamescache
 
 A Python library that provides functions to retrieve names, ISO and FIPS codes of continents, countries as well as US states and counties as Python dictionaries. The country and city datasets also include population and geographic data.
 
