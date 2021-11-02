@@ -88,7 +88,7 @@ class GeonamesCache:
                 if query in record[attribute]:
                     results.append(record)
             else:
-                lower_func = "casefold" if hasattr("", "casefold") else "lower"
+                lower_func = 'casefold' if hasattr('', 'casefold') else 'lower'
                 if isinstance(record[attribute], list):
                     if any(
                         getattr(query, lower_func)() == getattr(value, lower_func)()
