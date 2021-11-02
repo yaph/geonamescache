@@ -75,6 +75,21 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         cities = self.geonamescache.search_cities('Kiev')
         self.assertGreaterEqual(len(cities), 1)
 
+    def test_search_cities_case_sensitive(self):
+        cities = self.geonamescache.search_cities('Stoke-On-Trent')
+        self.assertGreaterEqual(len(cities), 0)
+        cities = self.geonamescache.search_cities('Stoke-On-Trent', case_sensitive=False)
+        self.assertGreaterEqual(len(cities), 1)
+
+    def test_search_cities_case_sensitive_with_casefold(self):
+        """Using casefold in python 3 for better case insensitive results
+        Example being Gießen
+        """
+        cities = self.geonamescache.search_cities('Giessen', attribute='name')
+        self.assertGreaterEqual(len(cities), 0)
+        cities = self.geonamescache.search_cities('Giessen', attribute='name', case_sensitive=False)
+        self.assertGreaterEqual(len(cities), 1 if hasattr("", "casefold") else 0)
+
     def test_us_counties_len(self):
         # Make sure there are 3235 counties, which includes Puerto Rico etc.
         us_counties = self.geonamescache.get_us_counties()
