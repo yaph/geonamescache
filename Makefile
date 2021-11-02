@@ -7,7 +7,6 @@ help:
 	@echo "clean-test - remove test and coverage artifacts"
 	@echo "dist - package"
 	@echo "test - run tests quickly with the default Python"
-	@echo "test-all - run tests on every Python version with tox"
 	@echo "release - package and upload a release"
 
 
@@ -47,7 +46,6 @@ clean-pyc:
 	find . -name '__pycache__' -exec rm -fr {} +
 
 clean-test:
-	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
 
@@ -59,14 +57,12 @@ install: clean
 	pip install -r requirements.txt --use-mirrors
 	python setup.py install
 
-# Call example: make release version=1.2.0
-release: clean dist
+# Call example: make release version=1.3.0
+release: test dist
 	git tag -a $(version) -m 'Create version $(version)'
 	git push --tags
 	twine upload dist/*
 
 test:
-	python setup.py test
-
-test-all:
-	tox
+	coverage run --source geonamescache -m pytest
+	coverage report

@@ -90,11 +90,6 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         cities = self.geonamescache.search_cities('Giessen', attribute='name', case_sensitive=False)
         self.assertGreaterEqual(len(cities), 1 if hasattr('', 'casefold') else 0)
 
-    def test_us_counties_len(self):
-        # Make sure there are 3235 counties, which includes Puerto Rico etc.
-        us_counties = self.geonamescache.get_us_counties()
-        self.assertEqual(3234, len(us_counties))
-
 
 if __name__ == '__main__':
     unittest.main()
