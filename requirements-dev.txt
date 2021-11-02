@@ -3,7 +3,6 @@ flake8
 ipython
 ipdb
 pytest
-Sphinx
 tox
 twine
 wheel
