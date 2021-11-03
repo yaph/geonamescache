@@ -53,9 +53,12 @@ Currently geonamescache provides the following methods, that return dictionaries
 
 In addition you can search for cities by name.
 
-- search_cities('NAME')
+- search_cities('NAME', case_sensitive=True)
 
-This function returns a list of city records that match the given ``NAME``. By default the ``alternatenames`` attribute is searched for matches.
+This function returns a list of city records that match the given ``NAME``.
+
+- By default the ``alternatenames`` attribute is searched for matches. 
+- By default the search is case sensitive, it can be made case insensitive by changing ``case_sensitive`` to False.
 
 
 Mappers
