@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 __title__ = 'geonamescache'
-__version__ = '1.3.0'
+__version__ = '1.4.0'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
 
 
-import os
 import json
+
+from importlib import resources
+
 from . import geonamesdata
 
 
@@ -19,7 +21,9 @@ class GeonamesCache:
     cities_items = None
     cities_by_names = {}
     us_counties = None
-    datadir = os.path.dirname(os.path.abspath(__file__))
+
+    def __init__(self, min_city_population=15000):
+        self.min_city_population = min_city_population
 
     def get_dataset_by_key(self, dataset, key):
         return dict((d[key], d) for c, d in list(dataset.items()))
@@ -48,7 +52,7 @@ class GeonamesCache:
         """Get a dictionary of cities keyed by geonameid."""
 
         if self.cities is None:
-            self.cities = self._load_data(self.cities, 'cities.json')
+            self.cities = self._load_data(self.cities, f'cities{self.min_city_population}.json')
         return self.cities
 
     def get_cities_by_name(self, name):
@@ -66,8 +70,7 @@ class GeonamesCache:
 
     def get_us_counties(self):
         if self.us_counties is None:
-            self.us_counties = self._load_data(
-                self.us_counties, 'us_counties.json')
+            self.us_counties = self._load_data(self.us_counties, 'us_counties.json')
         return self.us_counties
 
     def search_cities(self, query, attribute='alternatenames', case_sensitive=True):
@@ -95,6 +98,5 @@ class GeonamesCache:
 
     def _load_data(self, datadict, datafile):
         if datadict is None:
-            with open(os.path.join(self.datadir, datafile), 'r') as f:
-                datadict = json.load(f)
+            datadict = json.loads(resources.files('data').joinpath(datafile).read_text())
         return datadict
