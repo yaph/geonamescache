@@ -3,17 +3,18 @@
 import json
 import csv
 
+from pathlib import Path
+
+
 counties = []
+p_data = Path('data')
 
-with open('data/us_counties.txt', 'r', encoding='utf-8') as f:
-    r = csv.reader(f)
-    headers = next(r)
-    for line in r:
-        counties.append({
-            'fips': line[1] + line[2],
-            'name': line[3],
-            'state': line[0]
-        })
+reader = csv.reader(p_data.joinpath('us_counties.txt').open())
+for line in reader:
+    counties.append({
+        'fips': line[1] + line[2],
+        'name': line[3],
+        'state': line[0]
+    })
 
-with open('geonamescache/us_counties.json', 'w') as f:
-    json.dump(counties, f)
+p_data.joinpath('us_counties.json').write_text(json.dumps(counties))

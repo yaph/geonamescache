@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 import csv
 import json
+from pathlib import Path
 
-fcsv = open('data/countryInfo.txt', 'r', encoding='utf-8')
-reader = csv.reader(fcsv, 'excel-tab')
-headers = next(reader)
+
 countries = {}
+p_data = Path('data')
 
+reader = csv.reader(p_data.joinpath('countryInfo.txt').open(), 'excel-tab')
 for record in reader:
     if record[0].startswith('#'):
         continue
@@ -37,5 +38,5 @@ for record in reader:
         'neighbours': neighbours
     }
 
-with open('geonamescache/countries.json', 'w') as f:
-    json.dump(countries, f)
+
+Path('data', 'countries.json').write_text(json.dumps(countries))
