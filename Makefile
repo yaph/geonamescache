@@ -42,10 +42,10 @@ dl: data/cities500.txt data/cities1000.txt data/cities5000.txt data/cities15000.
 
 
 tojson:
-	'./scripts/continents.py'
-	'./scripts/countries.py'
-	'./scripts/cities.py'
-	'./scripts/us_counties.py'
+	'./bin/continents.py'
+	'./bin/countries.py'
+	'./bin/cities.py'
+	'./bin/us_counties.py'
 
 
 clean: clean-build clean-json clean-pyc clean-test
