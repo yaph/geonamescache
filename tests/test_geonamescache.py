@@ -62,8 +62,7 @@ class GeonamesCacheTestSuite(unittest.TestCase):
             self.assertEqual(name, cities[gid]['name'])
 
     def test_get_cities_by_name_madrid(self):
-        self.assertEqual(
-            2, len(self.geonamescache.get_cities_by_name('Madrid')))
+        self.assertGreater(len(self.geonamescache.get_cities_by_name('Madrid')), 2)
 
     def test_cities_in_us_states(self):
         cities = self.geonamescache.get_cities()
