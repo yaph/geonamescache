@@ -18,8 +18,8 @@ setup(
     author_email='code@ramiro.org',
     url='https://github.com/yaph/geonamescache',
     license='MIT',
-    packages=find_packages(exclude=('tests', 'data', 'scripts')),
-    package_data={'': ['LICENSE']},
+    packages=find_packages(exclude=('tests', 'scripts')),
+    package_data={'': ['data/*.json', 'LICENSE']},
     include_package_data=True,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -28,9 +28,9 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     test_suite='tests',

@@ -80,7 +80,7 @@ install: clean
 	python setup.py install
 
 
-# Call example: make release version=1.3.0
+# Call example: make release version=1.4.0
 release: test dist
 	git tag -a $(version) -m 'Create version $(version)'
 	git push --tags
