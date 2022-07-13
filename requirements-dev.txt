@@ -1,5 +1,6 @@
 coverage
 flake8
+httpx
 ipython
 ipdb
 pytest
