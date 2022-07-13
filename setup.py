@@ -1,26 +1,20 @@
 # -*- coding: utf-8 -*-
-import io
+from pathlib import Path
 from setuptools import setup, find_packages
 from geonamescache import __version__
-
-
-# Use io.open to be able to set encoding to utf-8.
-with io.open('README.rst', encoding='utf-8') as f:
-    readme = f.read()
 
 
 setup(
     name='geonamescache',
     version=__version__,
     description='Geonames data for continents, cities and US states.',
-    long_description=readme,
+    long_description=Path('README.md').read_text(),
     long_description_content_type='text/markdown',
     author='Ramiro Gómez',
     author_email='code@ramiro.org',
     url='https://github.com/yaph/geonamescache',
     license='MIT',
-    packages=find_packages(exclude=('tests', 'scripts')),
-    package_data={'': ['data/*.json', 'LICENSE']},
+    packages=find_packages(exclude=('tests', 'bin')),
     include_package_data=True,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
