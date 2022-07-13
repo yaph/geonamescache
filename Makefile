@@ -73,11 +73,6 @@ dist: clean
 	python setup.py bdist_wheel
 
 
-install: clean
-	pip install -r requirements.txt --use-mirrors
-	python setup.py install
-
-
 # Call example: make release version=1.4.0
 release: test dist
 	git tag -a $(version) -m 'Create version $(version)'
