@@ -97,5 +97,5 @@ class GeonamesCache:
 
     def _load_data(self, datadict, datafile):
         if datadict is None:
-            datadict = json.loads(resources.files('data').joinpath(datafile).read_text())
+            datadict = json.loads(resources.files(__name__).joinpath('data', datafile).read_text())
         return datadict

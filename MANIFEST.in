@@ -1,2 +1,3 @@
+recursive-exclude __pycache__ *.pyc *.pyo
 include README.md LICENSE
-recursive-include data *.json
+graft geonamescache

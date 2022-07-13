@@ -41,23 +41,21 @@ data/us_counties.txt:
 dl: data/cities500.txt data/cities1000.txt data/cities5000.txt data/cities15000.txt data/countryInfo.txt data/us_counties.txt
 
 
-tojson:
+json:
 	'./bin/continents.py'
 	'./bin/countries.py'
 	'./bin/cities.py'
 	'./bin/us_counties.py'
+	mv data/*.json geonamescache/data/
 
 
-clean: clean-build clean-json clean-pyc clean-test
+clean: clean-build clean-pyc clean-test
 
 clean-build:
 	rm -fr build/
 	rm -fr dist/
 	rm -fr .eggs/
 	rm -fr *.egg-info/
-
-clean-json:
-	rm -fr geonamescache/*.json
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
