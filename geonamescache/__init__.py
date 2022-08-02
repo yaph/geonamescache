@@ -6,8 +6,7 @@ __license__ = 'MIT'
 
 
 import json
-
-from importlib import resources
+import os
 
 from . import geonamesdata
 
@@ -95,7 +94,9 @@ class GeonamesCache:
                     results.append(record)
         return results
 
-    def _load_data(self, datadict, datafile):
+    @staticmethod
+    def _load_data(datadict, datafile):
         if datadict is None:
-            datadict = json.loads(resources.files(__name__).joinpath('data', datafile).read_text())
+            with open(os.path.join(os.path.dirname(__file__), 'data', datafile)) as f:
+                datadict = json.load(f)
         return datadict
