@@ -10,7 +10,7 @@ def test_cities_len():
     assert 25000 < len(geonamescache.get_cities())
 
 
-def test_cities_len():
+def test_countries_len():
     # Make sure there are more than 250 countries
     assert 250 < len(geonamescache.get_countries())
 
