@@ -73,7 +73,7 @@ dist: clean
 	python setup.py bdist_wheel
 
 
-# Call example: make release version=1.5.0
+# Call example: make release version=1.6.0
 release: test dist
 	git tag -a $(version) -m 'Create version $(version)'
 	git push --tags
