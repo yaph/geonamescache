@@ -72,25 +72,27 @@ class GeonamesCache:
             self.us_counties = self._load_data(self.us_counties, 'us_counties.json')
         return self.us_counties
 
-    def search_cities(self, query, attribute='alternatenames', case_sensitive=True):
+    def search_cities(self, query, attribute='alternatenames', case_sensitive=True, contains_search=True):
         """Search all city records and return list of records, that match query for given attribute."""
-
         results = []
-        for key, record in self.get_cities().items():
-            if case_sensitive:
-                if query in record[attribute]:
+        query = case_sensitive and query or query.casefold()
+        for record in self.get_cities().values():
+            record_value = record[attribute]
+            if contains_search:
+                if isinstance(record_value, list):
+                    if any(query in (case_sensitive and value or value.casefold()) for value in record_value):
+                        results.append(record)
+                elif query in (case_sensitive and record_value or record_value.casefold()):
                     results.append(record)
             else:
-                if isinstance(record[attribute], list):
-                    if any(
-                        getattr(query, 'casefold')() == getattr(value, 'casefold')()
-                        for value in record[attribute]
-                    ):
-                        results.append(record)
-                elif (
-                    getattr(query, 'casefold')()
-                    in getattr(record[attribute], 'casefold')()
-                ):
+                if isinstance(record_value, list):
+                    if case_sensitive:
+                        if query in record_value:
+                            results.append(record)
+                    else:
+                        if any(query == value.casefold() for value in record_value):
+                            results.append(record)
+                elif query == (case_sensitive and record_value or record_value.casefold()):
                     results.append(record)
         return results
 
