@@ -80,14 +80,29 @@ class GeonamesCacheTestSuite(unittest.TestCase):
         cities = self.geonamescache.search_cities('Stoke-On-Trent', case_sensitive=False)
         self.assertGreaterEqual(len(cities), 1)
 
-    def test_search_cities_case_sensitive_with_casefold(self):
-        """Using casefold in python 3 for better case insensitive results
-        Example being Gießen
-        """
-        cities = self.geonamescache.search_cities('Giessen', attribute='name')
-        self.assertGreaterEqual(len(cities), 0)
-        cities = self.geonamescache.search_cities('Giessen', attribute='name', case_sensitive=False)
-        self.assertGreaterEqual(len(cities), 1 if hasattr('', 'casefold') else 0)
+    def test_search_cities_alternatenames_contains_search(self):
+        cities = self.geonamescache.search_cities('London')
+        self.assertGreaterEqual(len(cities), 3)
+        cities = self.geonamescache.search_cities('London', contains_search=False)
+        self.assertGreaterEqual(len(cities), 2)
+
+    def test_search_cities_name_contains_search(self):
+        cities = self.geonamescache.search_cities('London', 'name')
+        self.assertGreaterEqual(len(cities), 3)
+        cities = self.geonamescache.search_cities('London', 'name', contains_search=False)
+        self.assertGreaterEqual(len(cities), 2)
+
+    def test_search_cities_alternatenames_contains_search_and_case_insensitive(self):
+        cities = self.geonamescache.search_cities('London', case_sensitive=False)
+        self.assertGreaterEqual(len(cities), 3)
+        cities = self.geonamescache.search_cities('London', case_sensitive=False, contains_search=False)
+        self.assertGreaterEqual(len(cities), 2)
+
+    def test_search_cities_name_contains_search_and_case_insensitive(self):
+        cities = self.geonamescache.search_cities('London', 'name', case_sensitive=False)
+        self.assertGreaterEqual(len(cities), 3)
+        cities = self.geonamescache.search_cities('London', 'name', case_sensitive=False, contains_search=False)
+        self.assertGreaterEqual(len(cities), 2)
 
 
 if __name__ == '__main__':
