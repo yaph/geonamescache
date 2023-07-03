@@ -75,14 +75,14 @@ class GeonamesCache:
     def search_cities(self, query, attribute='alternatenames', case_sensitive=True, contains_search=True):
         """Search all city records and return list of records, that match query for given attribute."""
         results = []
-        query = case_sensitive and query or query.casefold()
+        query = (case_sensitive and query) or query.casefold()
         for record in self.get_cities().values():
             record_value = record[attribute]
             if contains_search:
                 if isinstance(record_value, list):
-                    if any(query in (case_sensitive and value or value.casefold()) for value in record_value):
+                    if any(query in ((case_sensitive and value) or value.casefold()) for value in record_value):
                         results.append(record)
-                elif query in (case_sensitive and record_value or record_value.casefold()):
+                elif query in ((case_sensitive and record_value) or record_value.casefold()):
                     results.append(record)
             else:
                 if isinstance(record_value, list):
@@ -92,7 +92,7 @@ class GeonamesCache:
                     else:
                         if any(query == value.casefold() for value in record_value):
                             results.append(record)
-                elif query == (case_sensitive and record_value or record_value.casefold()):
+                elif query == ((case_sensitive and record_value) or record_value.casefold()):
                     results.append(record)
         return results
 
