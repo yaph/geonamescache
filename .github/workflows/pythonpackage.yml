@@ -1,6 +1,9 @@
 name: Python package
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -12,9 +15,12 @@ jobs:
         python-version: ['3.8', '3.9', '3.10']  # '3.11-dev'
 
     steps:
-    - uses: actions/checkout@v1
+    - name: check out git lfs
+      uses: actions/checkout@v3
+      with:
+        lfs: true
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: Test with pytest
