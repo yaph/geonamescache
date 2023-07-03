@@ -72,7 +72,7 @@ class GeonamesCache:
             self.us_counties = self._load_data(self.us_counties, 'us_counties.json')
         return self.us_counties
 
-    def search_cities(self, query, attribute='alternatenames', case_sensitive=True, contains_search=True):
+    def search_cities(self, query, attribute='alternatenames', case_sensitive=False, contains_search=True):
         """Search all city records and return list of records, that match query for given attribute."""
         results = []
         query = (case_sensitive and query) or query.casefold()
