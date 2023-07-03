@@ -50,7 +50,7 @@ In addition you can search for cities by name.
 This function returns a list of city records that match the given `NAME`.
 
 * By default the `alternatenames` attribute is searched for matches.
-* By default the search is case sensitive, it can be made case insensitive by changing `case_sensitive` to False.
+* By default the search is case insensitive, it can be made case sensitive by changing `case_sensitive` to True.
 * By default the search is contains, it can be made exact equality by changing `contains_search` to False.
 
 ## Mappers
