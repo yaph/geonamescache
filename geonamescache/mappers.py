@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+from typing import Callable, Union
+
 from geonamescache import GeonamesCache
+
 from . import mappings
 
 
-def country(from_key='name', to_key='iso'):
+def country(from_key: str = 'name', to_key: str = 'iso') -> Callable[[str], Union[str, int, None]]:
     """Creates and returns a mapper function to access country data.
 
     The mapper function that is returned must be called with one argument. In
@@ -21,7 +24,7 @@ def country(from_key='name', to_key='iso'):
     gc = GeonamesCache()
     dataset = gc.get_dataset_by_key(gc.get_countries(), from_key)
 
-    def mapper(input):
+    def mapper(input: str) -> Union[str, int, None]:
         # For country name inputs take the names mapping into account.
         if 'name' == from_key:
             input = mappings.country_names.get(input, input)
