@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+from typing import Dict
 
 # Map country name variants to the ones used in GeoNames.
-country_names = {
+country_names: Dict[str, str] = {
     'Bolivia (Plurinational State of)': 'Bolivia',
     'Bosnia-Herzegovina': 'Bosnia and Herzegovina',
     'Brunei Darussalam': 'Brunei',
