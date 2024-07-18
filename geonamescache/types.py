@@ -179,7 +179,7 @@ class City(TypedDict):
 class Country(TypedDict):
     areakm2: int
     capital: str
-    continentcode: str
+    continentcode: ContinentCode
     currencycode: str
     currencyname: str
     iso: str
