@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from . import types
 from typing import Dict
 
-us_states: Dict[types.USStateCode, types.USState] = {
+from .types import USState, USStateCode
+
+us_states: Dict[USStateCode, USState] = {
     'AK': {'code': 'AK', 'name': 'Alaska', 'fips': '02', 'geonameid': 5879092},
     'AL': {'code': 'AL', 'name': 'Alabama', 'fips': '01', 'geonameid': 4829764},
     'AR': {'code': 'AR', 'name': 'Arkansas', 'fips': '05', 'geonameid': 4099753},
