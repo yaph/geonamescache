@@ -22,5 +22,5 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Test with pytest
       run: |
-        pip install pytest
+        pip install pytest typing_extensions
         pytest
