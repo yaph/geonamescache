@@ -3,6 +3,7 @@ flake8
 httpx
 ipython
 ipdb
+mypy
 pytest
 twine
 typing-extensions

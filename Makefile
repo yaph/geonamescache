@@ -36,7 +36,6 @@ data/countryInfo.txt:
 data/us_counties.txt:
 	curl -o data/us_counties.txt https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt
 
-
 dl: data/cities500.txt data/cities1000.txt data/cities5000.txt data/cities15000.txt data/countryInfo.txt data/us_counties.txt
 
 json:
@@ -62,6 +61,8 @@ clean-pyc:
 
 clean-test:
 	rm -f .coverage
+	rm -fr .mypy_cache/
+	rm -fr .pytest_cache/
 	rm -fr htmlcov/
 
 dist: clean
@@ -75,5 +76,6 @@ release: test dist
 	twine upload dist/*
 
 test:
+	mypy --install-types --non-interactive geonamescache tests
 	coverage run --source geonamescache -m pytest
 	coverage report
