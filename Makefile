@@ -30,7 +30,6 @@ data/cities15000.txt:
 	unzip data/cities15000.zip -d data
 	rm data/cities15000.zip
 
-
 data/countryInfo.txt:
 	curl -o data/countryInfo.txt http://download.geonames.org/export/dump/countryInfo.txt
 
@@ -40,14 +39,12 @@ data/us_counties.txt:
 
 dl: data/cities500.txt data/cities1000.txt data/cities5000.txt data/cities15000.txt data/countryInfo.txt data/us_counties.txt
 
-
 json:
 	'./bin/continents.py'
 	'./bin/countries.py'
 	'./bin/cities.py'
 	'./bin/us_counties.py'
 	mv data/*.json geonamescache/data/
-
 
 clean: clean-build clean-pyc clean-test
 
@@ -67,18 +64,15 @@ clean-test:
 	rm -f .coverage
 	rm -fr htmlcov/
 
-
 dist: clean
 	python setup.py sdist
 	python setup.py bdist_wheel
-
 
 # Call example: make release version=2.0.0
 release: test dist
 	git tag -a $(version) -m 'Create version $(version)'
 	git push --tags
 	twine upload dist/*
-
 
 test:
 	coverage run --source geonamescache -m pytest
