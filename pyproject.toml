@@ -1,0 +1,96 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "geonamescache"
+dynamic = ["version"]
+description = "Geonames data for continents, cities and US states."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = ["geonames", "geo", "geodata", "countries", "states", "fips", "counties", "iso-codes"]
+authors = [
+  { name = "Ramiro Gómez", email = "code@ramiro.org" },
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+  "typing-extensions"
+]
+
+[project.urls]
+Documentation = "https://github.com/yaph/geonamescache#readme"
+Issues = "https://github.com/yaph/geonamescache/issues"
+Source = "https://github.com/yaph/geonamescache"
+
+[tool.hatch.version]
+path = "geonamescache/__init__.py"
+
+[tool.hatch.envs.geonamescache-dev]
+extra-dependencies = [
+  "flake8",
+  "ipdb",
+  "httpx",
+  "mypy>=1.0.0"
+]
+
+[tool.hatch.envs.geonamescache-dev.scripts]
+type_check = "mypy --install-types --non-interactive {args:geonamescache tests}"
+qa = [
+  "hatch run type_check",
+  "hatch test"
+]
+release = [
+  "hatch run qa",
+  "hatch build --clean",
+  "hatch publish",
+  "git tag -a $(hatch version) -m \"Create version $(hatch version)\"",
+  "git push --tags",
+  "git-changelog -o CHANGELOG.md",
+  "git commit -m 'Update CHANGELOG' CHANGELOG.md",
+  "git push"
+]
+test_release = [
+  "hatch run qa",
+  "hatch build --clean"
+]
+
+[tool.coverage.run]
+source_pkgs = ["geonamescache", "tests"]
+branch = true
+parallel = true
+omit = [
+  "geonamescache/__about__.py",
+]
+
+[tool.coverage.paths]
+geonamescache = ["geonamescache", "*/geonamescache/geonamescache"]
+tests = ["tests", "*/geonamescache/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.ruff.lint]
+ignore = ["T201", "DTZ005"]
+
+[tool.ruff.format]
+quote-style = "preserve"
+skip-magic-trailing-comma = true
