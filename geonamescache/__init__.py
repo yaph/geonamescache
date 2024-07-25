@@ -93,8 +93,9 @@ class GeonamesCache:
         self,
         query: str,
         attribute: CitySearchAttribute = 'alternatenames',
+        *,
         case_sensitive: bool = False,
-        contains_search: bool = True,
+        contains_search: bool = True
     ) -> List[City]:
         """Search all city records and return list of records, that match query for given attribute."""
         results = []

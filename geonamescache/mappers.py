@@ -45,12 +45,12 @@ def country(
     gc = GeonamesCache()
     dataset = gc.get_dataset_by_key(gc.get_countries(), from_key)
 
-    def mapper(input: str) -> Any:
-        # For country name inputs take the names mapping into account.
+    def mapper(value: str) -> Any:
+        # For country names take the mappings into account.
         if from_key == "name":
-            input = mappings.country_names.get(input, input)
-        # If there is a record return the demanded attribute.
-        item = dataset.get(input)
+            value = mappings.country_names.get(value, value)
+        # If there is a record return the corresponding attribute value.
+        item = dataset.get(value)
         if item:
             return item[to_key]
         return None
