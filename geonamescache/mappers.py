@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 from typing import Any, Callable, Literal, overload
 
 from geonamescache import GeonamesCache
 
 from . import mappings
-from .types import (ContinentCode, CountryFields, CountryNumericFields,
-                    CountryStringFields)
+from .types import ContinentCode, CountryFields, CountryNumericFields, CountryStringFields
 
 
 @overload
@@ -51,7 +49,7 @@ def country(
 
     def mapper(input: str) -> Any:
         # For country name inputs take the names mapping into account.
-        if "name" == from_key:
+        if from_key == "name":
             input = mappings.country_names.get(input, input)
         # If there is a record return the demanded attribute.
         item = dataset.get(input)

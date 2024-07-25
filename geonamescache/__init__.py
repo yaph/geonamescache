@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 __title__ = 'geonamescache'
 __version__ = '2.0.0'
 __author__ = 'Ramiro Gómez'
@@ -10,9 +9,19 @@ import os
 from typing import Any, Dict, List, Mapping, Optional, Tuple, TypeVar
 
 from . import geonamesdata
-from .types import (City, CitySearchAttribute, Continent, ContinentCode,
-                    Country, GeoNameIdStr, ISOStr, USCounty, USState,
-                    USStateCode, USStateName)
+from .types import (
+    City,
+    CitySearchAttribute,
+    Continent,
+    ContinentCode,
+    Country,
+    GeoNameIdStr,
+    ISOStr,
+    USCounty,
+    USState,
+    USStateCode,
+    USStateName,
+)
 
 TDict = TypeVar('TDict', bound=Mapping[str, Any])
 
@@ -98,16 +107,14 @@ class GeonamesCache:
                         results.append(record)
                 elif query in ((case_sensitive and record_value) or record_value.casefold()):
                     results.append(record)
-            else:
-                if isinstance(record_value, list):
-                    if case_sensitive:
-                        if query in record_value:
-                            results.append(record)
-                    else:
-                        if any(query == value.casefold() for value in record_value):
-                            results.append(record)
-                elif query == ((case_sensitive and record_value) or record_value.casefold()):
+            elif isinstance(record_value, list):
+                if case_sensitive:
+                    if query in record_value:
+                        results.append(record)
+                elif any(query == value.casefold() for value in record_value):
                     results.append(record)
+            elif query == ((case_sensitive and record_value) or record_value.casefold()):
+                results.append(record)
         return results
 
     @staticmethod

@@ -1,9 +1,7 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import csv
 import json
 from pathlib import Path
-
 
 countries = {}
 p_data = Path('data')

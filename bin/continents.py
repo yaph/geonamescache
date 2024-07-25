@@ -1,13 +1,11 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 # Get continent data including bounding boxes and centroids for and store it
 # in json file keyed by continentCode.
-import os
 import json
-import httpx
-
+import os
 from pathlib import Path
 
+import httpx
 
 # see http://download.geonames.org/export/dump/readme.txt
 continent_ids = [6255146, 6255147, 6255148, 6255149, 6255151, 6255150, 6255152]
@@ -21,8 +19,8 @@ continents = {}
 
 
 def account_ok(j):
-    if j.get(u'status', {}).get(u'value') == 10:
-        print(j[u'status'][u'message'])
+    if j.get('status', {}).get('value') == 10:
+        print(j['status']['message'])
         exit(1)
 
 
