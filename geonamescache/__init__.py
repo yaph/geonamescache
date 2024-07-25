@@ -8,8 +8,8 @@ import json
 import os
 from typing import Any, Dict, List, Mapping, Optional, Tuple, TypeVar
 
-from . import geonamesdata
-from .types import (
+from geonamescache import geonamesdata
+from geonamescache.types import (
     City,
     CitySearchAttribute,
     Continent,
@@ -42,7 +42,7 @@ class GeonamesCache:
     def get_dataset_by_key(
         self, dataset: Dict[Any, TDict], key: str
     ) -> Dict[Any, TDict]:
-        return dict((d[key], d) for c, d in list(dataset.items()))
+        return {d[key]: d for c, d in list(dataset.items())}
 
     def get_continents(self) -> Dict[ContinentCode, Continent]:
         if self.continents is None:
@@ -80,7 +80,7 @@ class GeonamesCache:
         if name not in self.cities_by_names:
             if self.cities_items is None:
                 self.cities_items = list(self.get_cities().items())
-            self.cities_by_names[name] = [dict({gid: city})
+            self.cities_by_names[name] = [{gid: city}
                 for gid, city in self.cities_items if city['name'] == name]
         return self.cities_by_names[name]
 
