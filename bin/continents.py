@@ -3,6 +3,7 @@
 # in json file keyed by continentCode.
 import json
 import os
+import sys
 from pathlib import Path
 
 import httpx
@@ -21,7 +22,7 @@ continents = {}
 def account_ok(j):
     if j.get('status', {}).get('value') == 10:
         print(j['status']['message'])
-        exit(1)
+        sys.exit(1)
 
 
 for geoid in continent_ids:

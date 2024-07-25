@@ -1,9 +1,7 @@
 from typing import Any, Callable, Literal, overload
 
-from geonamescache import GeonamesCache
-
-from . import mappings
-from .types import ContinentCode, CountryFields, CountryNumericFields, CountryStringFields
+from geonamescache import GeonamesCache, mappings
+from geonamescache.types import ContinentCode, CountryFields, CountryNumericFields, CountryStringFields
 
 
 @overload
@@ -55,5 +53,6 @@ def country(
         item = dataset.get(input)
         if item:
             return item[to_key]
+        return None
 
     return mapper

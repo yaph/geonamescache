@@ -1,6 +1,6 @@
 from typing import Dict
 
-from .types import USState, USStateCode
+from geonamescache.types import USState, USStateCode
 
 us_states: Dict[USStateCode, USState] = {
     'AK': {'code': 'AK', 'name': 'Alaska', 'fips': '02', 'geonameid': 5879092},
