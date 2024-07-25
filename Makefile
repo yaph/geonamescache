@@ -3,11 +3,8 @@
 help:
 	@echo "clean - remove all build, test, coverage and Python artifacts"
 	@echo "clean-build - remove build artifacts"
-	@echo "clean-pyc - remove Python file artifacts"
+	@echo "clean-py - remove Python file artifacts"
 	@echo "clean-test - remove test and coverage artifacts"
-	@echo "dist - package"
-	@echo "test - run tests quickly with the default Python"
-	@echo "release - package and upload a release"
 
 
 data/cities500.txt:
@@ -45,7 +42,7 @@ json:
 	'./bin/us_counties.py'
 	mv data/*.json geonamescache/data/
 
-clean: clean-build clean-pyc clean-test
+clean: clean-build clean-py clean-test
 
 clean-build:
 	rm -fr build/
@@ -53,7 +50,7 @@ clean-build:
 	rm -fr .eggs/
 	rm -fr *.egg-info/
 
-clean-pyc:
+clean-py:
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
@@ -64,18 +61,3 @@ clean-test:
 	rm -fr .mypy_cache/
 	rm -fr .pytest_cache/
 	rm -fr htmlcov/
-
-dist: clean
-	python setup.py sdist
-	python setup.py bdist_wheel
-
-# Call example: make release version=2.0.0
-release: test dist
-	git tag -a $(version) -m 'Create version $(version)'
-	git push --tags
-	twine upload dist/*
-
-test:
-	mypy --install-types --non-interactive geonamescache tests
-	coverage run --source geonamescache -m pytest
-	coverage report
