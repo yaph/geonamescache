@@ -4,7 +4,8 @@ from typing import Any, Callable, Literal, overload
 from geonamescache import GeonamesCache
 
 from . import mappings
-from .types import ContinentCode, CountryFields, CountryNumericFields
+from .types import (ContinentCode, CountryFields, CountryNumericFields,
+                    CountryStringFields)
 
 
 @overload
@@ -16,20 +17,7 @@ def country(
 @overload
 def country(
     from_key: str = "name",
-    to_key: Literal[
-        "capital",
-        "currencycode",
-        "currencyname",
-        "iso",
-        "iso3",
-        "fips",
-        "languages",
-        "name",
-        "neighbours",
-        "phone",
-        "postalcoderegex",
-        "tld",
-    ] = "iso",
+    to_key: CountryStringFields = "iso",
 ) -> Callable[[str], str]: ...
 
 
