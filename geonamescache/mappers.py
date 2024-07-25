@@ -1,8 +1,51 @@
 # -*- coding: utf-8 -*-
-from typing import Any, Callable
+from typing import Any, Callable, Literal, overload
+
 from geonamescache import GeonamesCache
 
 from . import mappings
+from .types import ContinentCode
+
+
+@overload
+def country(
+    from_key: str = "name",
+    *,
+    to_key: Literal[
+        "areakm2",
+        "isonumeric",
+        "geonameid",
+        "population",
+    ],
+) -> Callable[[str], int]: ...
+
+
+@overload
+def country(
+    from_key: str = "name",
+    to_key: Literal[
+        "capital",
+        "currencycode",
+        "currencyname",
+        "iso",
+        "iso3",
+        "fips",
+        "languages",
+        "name",
+        "neighbours",
+        "phone",
+        "postalcoderegex",
+        "tld",
+    ] = "iso",
+) -> Callable[[str], str]: ...
+
+
+@overload
+def country(
+    from_key: str = "name",
+    *,
+    to_key: Literal["continentcode"],
+) -> Callable[[str], ContinentCode]: ...
 
 
 def country(from_key: str = "name", to_key: str = "iso") -> Callable[[str], Any]:
