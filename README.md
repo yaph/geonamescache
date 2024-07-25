@@ -12,21 +12,18 @@ Geonames data is obtained from [GeoNames](http://www.geonames.org/).
 
 ## Usage
 
-A simple usage example:
+A simple example:
 
     import geonamescache
 
     gc = geonamescache.GeonamesCache()
-    countries = gc.get_countries()
-    # print countries dictionary
-    print(countries)
-    # you really wanna do something more useful with the data...
+    print(gc.get_countries())
 
 ## Settings
 
 ### Cities dataset
 
-When creating a `GeonamesCache` you can set the `min_city_population` parameter to either of 500, 1000, 5000 or the default 15000. The smaller the minimum popluation the more cities are included in the cities dataset.
+When creating a `GeonamesCache` you can set the `min_city_population` parameter to either of 500, 1000, 5000 or the default 15000. The smaller the minimum population the more cities are included in the cities dataset.
 
 *New in version 1.4*
 
