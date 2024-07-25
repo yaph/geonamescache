@@ -31,8 +31,8 @@ class GeonamesCache:
         self.min_city_population = min_city_population
 
     def get_dataset_by_key(
-        self, dataset: Dict[str, TDict], key: str
-    ) -> Dict[str, TDict]:
+        self, dataset: Dict[Any, TDict], key: str
+    ) -> Dict[Any, TDict]:
         return dict((d[key], d) for c, d in list(dataset.items()))
 
     def get_continents(self) -> Dict[ContinentCode, Continent]:
@@ -111,7 +111,7 @@ class GeonamesCache:
         return results
 
     @staticmethod
-    def _load_data(datadict: Optional[Dict[str, Any]], datafile: str) -> Dict[str, Any]:
+    def _load_data(datadict: Optional[Dict[Any, Any]], datafile: str) -> Dict[Any, Any]:
         if datadict is None:
             with open(os.path.join(os.path.dirname(__file__), 'data', datafile)) as f:
                 datadict = json.load(f)
