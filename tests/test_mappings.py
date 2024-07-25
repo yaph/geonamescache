@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # GeonamesCache Mappings test cases.
 from geonamescache import mappings
 from geonamescache.mappers import country

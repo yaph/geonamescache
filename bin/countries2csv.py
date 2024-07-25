@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import pandas as pd
+
 from geonamescache import GeonamesCache
 
 gc = GeonamesCache()

@@ -1,10 +1,7 @@
 #!/usr/bin/env python
-# coding: utf-8
-import json
 import csv
-
+import json
 from pathlib import Path
-
 
 counties = []
 p_data = Path('data')

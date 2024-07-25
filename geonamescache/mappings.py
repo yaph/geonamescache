@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from typing import Dict
 
 # Map country name variants to the ones used in GeoNames.
