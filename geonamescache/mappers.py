@@ -4,19 +4,12 @@ from typing import Any, Callable, Literal, overload
 from geonamescache import GeonamesCache
 
 from . import mappings
-from .types import ContinentCode
+from .types import ContinentCode, CountryFields, CountryNumericFields
 
 
 @overload
 def country(
-    from_key: str = "name",
-    *,
-    to_key: Literal[
-        "areakm2",
-        "isonumeric",
-        "geonameid",
-        "population",
-    ],
+    from_key: str = "name", *, to_key: CountryNumericFields
 ) -> Callable[[str], int]: ...
 
 
@@ -48,7 +41,9 @@ def country(
 ) -> Callable[[str], ContinentCode]: ...
 
 
-def country(from_key: str = "name", to_key: str = "iso") -> Callable[[str], Any]:
+def country(
+    from_key: str = "name", to_key: CountryFields = "iso"
+) -> Callable[[str], Any]:
     """Creates and returns a mapper function to access country data.
 
     The mapper function that is returned must be called with one argument. In
@@ -73,6 +68,6 @@ def country(from_key: str = "name", to_key: str = "iso") -> Callable[[str], Any]
         # If there is a record return the demanded attribute.
         item = dataset.get(input)
         if item:
-            return item[to_key]  # type: ignore
+            return item[to_key]
 
     return mapper
