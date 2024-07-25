@@ -6,7 +6,7 @@ __license__ = 'MIT'
 
 import json
 import os
-from typing import Any, Dict, List, Mapping, Optional, Tuple, TypeVar
+from typing import Any, ClassVar, Dict, List, Mapping, Optional, Tuple, TypeVar
 
 from geonamescache import geonamesdata
 from geonamescache.types import (
@@ -33,7 +33,7 @@ class GeonamesCache:
     countries: Optional[Dict[ISOStr, Country]] = None
     cities: Optional[Dict[GeoNameIdStr, City]] = None
     cities_items: Optional[List[Tuple[GeoNameIdStr, City]]] = None
-    cities_by_names: Dict[str, List[Dict[GeoNameIdStr, City]]] = {}
+    cities_by_names: ClassVar[Dict[str, List[Dict[GeoNameIdStr, City]]]] = {}
     us_counties: Optional[List[USCounty]] = None
 
     def __init__(self, min_city_population: int = 15000):
