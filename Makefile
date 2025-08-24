@@ -5,7 +5,10 @@ help:
 	@echo "clean-build - remove build artifacts"
 	@echo "clean-py - remove Python file artifacts"
 	@echo "clean-test - remove test and coverage artifacts"
+	@echo "clean-data - remove all downloaded files in data/"
 
+make_data:
+	mkdir data
 
 data/cities500.txt:
 	curl -o data/cities500.zip http://download.geonames.org/export/dump/cities500.zip
@@ -31,9 +34,9 @@ data/countryInfo.txt:
 	curl -o data/countryInfo.txt http://download.geonames.org/export/dump/countryInfo.txt
 
 data/us_counties.txt:
-	curl -o data/us_counties.txt https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt
+	curl -o data/us_counties.txt https://www2.census.gov/geo/docs/reference/codes2020/national_county2020.txt
 
-dl: data/cities500.txt data/cities1000.txt data/cities5000.txt data/cities15000.txt data/countryInfo.txt data/us_counties.txt
+dl: make_data data/cities500.txt data/cities1000.txt data/cities5000.txt data/cities15000.txt data/countryInfo.txt data/us_counties.txt
 
 json:
 	'./bin/continents.py'
@@ -42,7 +45,10 @@ json:
 	'./bin/us_counties.py'
 	mv data/*.json geonamescache/data/
 
-clean: clean-build clean-py clean-test
+clean: clean-build clean-py clean-test clean-data
+
+clean-data:
+	rm -fr data/
 
 clean-build:
 	rm -fr build/
