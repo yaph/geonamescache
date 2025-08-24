@@ -6,6 +6,7 @@ from pathlib import Path
 p_data = Path('data')
 
 reader = csv.reader(p_data.joinpath('us_counties.txt').open())
+next(reader) # skip header row
 
 state_name_idx = 0
 state_fips_idx = 1
@@ -23,4 +24,5 @@ for line in reader:
         }
     )
 
-p_data.joinpath('us_counties.json').write_text(json.dumps(counties))
+# need ensure_ascii=False to handle special characters (for PR counties)
+p_data.joinpath('us_counties.json').write_text(json.dumps(counties, ensure_ascii=False))
