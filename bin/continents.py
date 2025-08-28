@@ -13,11 +13,7 @@ ACCOUNT_ERR_CODE = 10
 # see http://download.geonames.org/export/dump/readme.txt
 continent_ids = [6255146, 6255147, 6255148, 6255149, 6255151, 6255150, 6255152]
 url = 'http://api.geonames.org/getJSON'
-params = {
-    'formatted': 'true',
-    'username': os.environ['GEONAMES_USER'],
-    'geonameId': None
-}
+params = {'formatted': 'true', 'username': os.environ['GEONAMES_USER'], 'geonameId': None}
 continents = {}
 
 

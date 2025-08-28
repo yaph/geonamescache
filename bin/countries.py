@@ -11,10 +11,27 @@ for record in reader:
     if record[0].startswith('#'):
         continue
 
-    (iso, iso3, isonumeric, fips, name, capital, areakm2, population,
-    continentcode, tld, currencycode, currencyname, phone, postalcodeformat,
-    postalcoderegex, languages, geonameid, neighbours,
-    equivalentfipscode) = record
+    (
+        iso,
+        iso3,
+        isonumeric,
+        fips,
+        name,
+        capital,
+        areakm2,
+        population,
+        continentcode,
+        tld,
+        currencycode,
+        currencyname,
+        phone,
+        postalcodeformat,
+        postalcoderegex,
+        languages,
+        geonameid,
+        neighbours,
+        equivalentfipscode,
+    ) = record
 
     countries[iso] = {
         'geonameid': int(geonameid) if geonameid else 0,
@@ -33,7 +50,7 @@ for record in reader:
         'phone': phone,
         'postalcoderegex': postalcoderegex,
         'languages': languages,
-        'neighbours': neighbours
+        'neighbours': neighbours,
     }
 
 

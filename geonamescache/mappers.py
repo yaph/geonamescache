@@ -1,33 +1,23 @@
-from typing import Any, Callable, Literal, overload
+from collections.abc import Callable
+from typing import Any, Literal, overload
 
 from geonamescache import GeonamesCache, mappings
 from geonamescache.types import ContinentCode, CountryFields, CountryNumericFields, CountryStringFields
 
 
 @overload
-def country(
-    from_key: str = "name", *, to_key: CountryNumericFields
-) -> Callable[[str], int]: ...
+def country(from_key: str = "name", *, to_key: CountryNumericFields) -> Callable[[str], int]: ...
 
 
 @overload
-def country(
-    from_key: str = "name",
-    to_key: CountryStringFields = "iso",
-) -> Callable[[str], str]: ...
+def country(from_key: str = "name", to_key: CountryStringFields = "iso") -> Callable[[str], str]: ...
 
 
 @overload
-def country(
-    from_key: str = "name",
-    *,
-    to_key: Literal["continentcode"],
-) -> Callable[[str], ContinentCode]: ...
+def country(from_key: str = "name", *, to_key: Literal["continentcode"]) -> Callable[[str], ContinentCode]: ...
 
 
-def country(
-    from_key: str = "name", to_key: CountryFields = "iso"
-) -> Callable[[str], Any]:
+def country(from_key: str = "name", to_key: CountryFields = "iso") -> Callable[[str], Any]:
     """Creates and returns a mapper function to access country data.
 
     The mapper function that is returned must be called with one argument. In

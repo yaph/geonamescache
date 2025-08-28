@@ -1,8 +1,6 @@
-from typing import Dict
-
 from geonamescache.types import USState, USStateCode
 
-us_states: Dict[USStateCode, USState] = {
+us_states: dict[USStateCode, USState] = {
     'AK': {'code': 'AK', 'name': 'Alaska', 'fips': '02', 'geonameid': 5879092},
     'AL': {'code': 'AL', 'name': 'Alabama', 'fips': '01', 'geonameid': 4829764},
     'AR': {'code': 'AR', 'name': 'Arkansas', 'fips': '05', 'geonameid': 4099753},
@@ -53,5 +51,5 @@ us_states: Dict[USStateCode, USState] = {
     'WA': {'code': 'WA', 'name': 'Washington', 'fips': '53', 'geonameid': 5815135},
     'WI': {'code': 'WI', 'name': 'Wisconsin', 'fips': '55', 'geonameid': 5279468},
     'WV': {'code': 'WV', 'name': 'West Virginia', 'fips': '54', 'geonameid': 4826850},
-    'WY': {'code': 'WY', 'name': 'Wyoming', 'fips': '56', 'geonameid': 5843591}
+    'WY': {'code': 'WY', 'name': 'Wyoming', 'fips': '56', 'geonameid': 5843591},
 }

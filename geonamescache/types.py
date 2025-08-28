@@ -1,6 +1,6 @@
-from typing import List
+from typing import Literal
 
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 GeoNameIdStr = str
 ISOStr = str
@@ -111,9 +111,7 @@ USStateName = Literal[
     "West Virginia",
     "Wyoming",
 ]
-CitySearchAttribute = Literal[
-    "alternatenames", "admin1code", "countrycode", "name", "timezone"
-]
+CitySearchAttribute = Literal["alternatenames", "admin1code", "countrycode", "name", "timezone"]
 
 
 class TimeZone(TypedDict):
@@ -139,7 +137,7 @@ class ContinentAlternateName(TypedDict):
 
 
 class Continent(TypedDict):
-    alternateNames: List[ContinentAlternateName]
+    alternateNames: list[ContinentAlternateName]
     adminName1: str
     adminName2: str
     adminName3: str
@@ -166,7 +164,7 @@ class Continent(TypedDict):
 
 
 class City(TypedDict):
-    alternatenames: List[str]
+    alternatenames: list[str]
     admin1code: str
     countrycode: str
     geonameid: int
@@ -177,12 +175,7 @@ class City(TypedDict):
     timezone: str
 
 
-CountryNumericFields = Literal[
-    "areakm2",
-    "isonumeric",
-    "geonameid",
-    "population",
-]
+CountryNumericFields = Literal["areakm2", "isonumeric", "geonameid", "population"]
 CountryStringFields = Literal[
     "capital",
     "currencycode",
@@ -197,11 +190,7 @@ CountryStringFields = Literal[
     "postalcoderegex",
     "tld",
 ]
-CountryFields = Literal[
-    CountryNumericFields,
-    CountryStringFields,
-    "continentcode",
-]
+CountryFields = Literal[CountryNumericFields, CountryStringFields, "continentcode"]
 
 
 class Country(TypedDict):

@@ -1,7 +1,5 @@
-from typing import Dict
-
 # Map country name variants to the ones used in GeoNames.
-country_names: Dict[str, str] = {
+country_names: dict[str, str] = {
     'Bolivia (Plurinational State of)': 'Bolivia',
     'Bosnia-Herzegovina': 'Bosnia and Herzegovina',
     'Brunei Darussalam': 'Brunei',
@@ -71,5 +69,5 @@ country_names: Dict[str, str] = {
     'Vatican City': 'Vatican',
     'Venezuela (Bolivarian Republic of)': 'Venezuela',
     'Viet Nam': 'Vietnam',
-    'West Bank and Gaza Strip': 'Palestinian Territory'
+    'West Bank and Gaza Strip': 'Palestinian Territory',
 }

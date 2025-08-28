@@ -16,7 +16,7 @@ class TestGeonamesCacheSuite:
             ('EU', 'Europe'),
             ('NA', 'North America'),
             ('OC', 'Oceania'),
-            ('SA', 'South America')
+            ('SA', 'South America'),
         )
         for code, name in testdata:
             assert code in continents
@@ -39,8 +39,7 @@ class TestGeonamesCacheSuite:
     def test_us_states(self):
         us_states = self.geonamescache.get_us_states()
 
-        testdata = (
-            ('NM', 'New Mexico'), ('CA', 'California'), ('NV', 'Nevada'))
+        testdata = (('NM', 'New Mexico'), ('CA', 'California'), ('NV', 'Nevada'))
         for code, name in testdata:
             assert code in us_states
             assert name == us_states[code]['name']
@@ -51,8 +50,7 @@ class TestGeonamesCacheSuite:
     def test_get_countries_by_names(self):
         # Length of get_countries_by_names dict and get_countries dict must be
         # the same, unless country names wouldn't be unique.
-        assert len(self.geonamescache.get_countries_by_names()), \
-                        len(self.geonamescache.get_countries())
+        assert len(self.geonamescache.get_countries_by_names()), len(self.geonamescache.get_countries())
 
     def test_get_cities_by_name(self):
         cities = self.geonamescache.get_cities()

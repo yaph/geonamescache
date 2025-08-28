@@ -7,7 +7,7 @@ name = "geonamescache"
 dynamic = ["version"]
 description = "Geonames data for continents, cities and US states."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = "MIT"
 keywords = ["geonames", "geo", "geodata", "countries", "states", "fips", "counties", "iso-codes"]
 authors = [
@@ -20,8 +20,6 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
