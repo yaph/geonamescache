@@ -63,12 +63,12 @@ def extract_zip(zip_path: Path, extract_to: Path) -> bool:
         return False
 
 
-async def download_all_files(data_dir: Path = Path('data')) -> bool:
+async def download_all_files() -> bool:
     """Download all required data files."""
 
-    # Create data directory
+    data_dir = Path('data')
     data_dir.mkdir(exist_ok=True)
-    print(f'Using data directory: {data_dir.absolute()}')
+    print(f'Downloading data to: {data_dir.absolute()}')
 
     success_count = 0
 
@@ -115,7 +115,7 @@ async def download_all_files(data_dir: Path = Path('data')) -> bool:
 
 def main():
     try:
-        success = asyncio.run(download_all_files(Path('data')))
+        success = asyncio.run(download_all_files())
         sys.exit(0 if success else 1)
     except KeyboardInterrupt:
         sys.exit('\n✗ Download interrupted by user')
