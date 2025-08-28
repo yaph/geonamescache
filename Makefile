@@ -8,7 +8,7 @@ help:
 	@echo "clean-data - remove all downloaded files in data/"
 
 make_data:
-	mkdir data
+	mkdir -p data
 
 data/cities500.txt:
 	curl -o data/cities500.zip http://download.geonames.org/export/dump/cities500.zip
