@@ -1,5 +1,5 @@
 __title__ = 'geonamescache'
-__version__ = '2.0.0'
+__version__ = '3.0.0'
 __author__ = 'Ramiro Gómez'
 __license__ = 'MIT'
 
@@ -9,7 +9,6 @@ import os
 from collections.abc import Mapping
 from typing import Any, ClassVar, TypeVar
 
-from geonamescache import geonamesdata
 from geonamescache.types import (
     City,
     CitySearchAttribute,
@@ -28,13 +27,13 @@ TDict = TypeVar('TDict', bound=Mapping[str, Any])
 
 
 class GeonamesCache:
-    us_states: dict[USStateCode, USState] = geonamesdata.us_states
     continents: dict[ContinentCode, Continent] | None = None
     countries: dict[ISOStr, Country] | None = None
     cities: dict[GeoNameIdStr, City] | None = None
     cities_items: list[tuple[GeoNameIdStr, City]] | None = None
     cities_by_names: ClassVar[dict[str, list[dict[GeoNameIdStr, City]]]] = {}
     us_counties: list[USCounty] | None = None
+    us_states: dict[USStateCode, USState] | None = None
 
     def __init__(self, min_city_population: int = 15000):
         self.min_city_population = min_city_population
@@ -43,17 +42,13 @@ class GeonamesCache:
         return {d[key]: d for c, d in list(dataset.items())}
 
     def get_continents(self) -> dict[ContinentCode, Continent]:
-        if self.continents is None:
-            self.continents = self._load_data(self.continents, 'continents.json')
-        return self.continents
+        return self._load_data(self.continents, 'continents.json')
 
     def get_countries(self) -> dict[ISOStr, Country]:
-        if self.countries is None:
-            self.countries = self._load_data(self.countries, 'countries.json')
-        return self.countries
+        return self._load_data(self.countries, 'countries.json')
 
     def get_us_states(self) -> dict[USStateCode, USState]:
-        return self.us_states
+        return self._load_data(self.us_states, 'us_states.json')
 
     def get_countries_by_names(self) -> dict[str, Country]:
         return self.get_dataset_by_key(self.get_countries(), 'name')
@@ -63,10 +58,7 @@ class GeonamesCache:
 
     def get_cities(self) -> dict[GeoNameIdStr, City]:
         """Get a dictionary of cities keyed by geonameid."""
-
-        if self.cities is None:
-            self.cities = self._load_data(self.cities, f'cities{self.min_city_population}.json')
-        return self.cities
+        return self._load_data(self.cities, f'cities{self.min_city_population}.json')
 
     def get_cities_by_name(self, name: str) -> list[dict[GeoNameIdStr, City]]:
         """Get a list of city dictionaries with the given name.
@@ -81,9 +73,7 @@ class GeonamesCache:
         return self.cities_by_names[name]
 
     def get_us_counties(self):
-        if self.us_counties is None:
-            self.us_counties = self._load_data(self.us_counties, 'us_counties.json')
-        return self.us_counties
+        return self._load_data(self.us_counties, 'us_counties.json')
 
     def search_cities(
         self,

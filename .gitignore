@@ -4,6 +4,8 @@ data/*.json
 data/*.txt
 data/*.zip
 
+geonamescache/data/us_states.json
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
