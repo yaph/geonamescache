@@ -27,7 +27,6 @@ async def download_file(client: httpx.AsyncClient, filename: str, url: str, data
         response.raise_for_status()
         file_path = data_dir / filename
 
-        # Write the file
         file_path.write_bytes(response.content)
         print(f'✓ Downloaded {filename}')
         return True
@@ -50,7 +49,6 @@ def extract_zip(zip_path: Path, extract_to: Path) -> bool:
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(extract_to)
 
-        # Remove the zip file
         zip_path.unlink()
         print(f'✓ Extracted and removed {zip_path.name}')
         return True
