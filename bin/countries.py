@@ -54,4 +54,4 @@ for record in reader:
     }
 
 
-Path('data', 'countries.json').write_text(json.dumps(countries))
+Path('datasets', 'countries.json').write_text(json.dumps(countries))

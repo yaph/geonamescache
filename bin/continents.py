@@ -32,4 +32,4 @@ for geoid in continent_ids:
         continents[cont['continentCode']] = cont
 
 
-Path('data', 'continents.json').write_text(json.dumps(continents))
+Path('datasets', 'continents.json').write_text(json.dumps(continents))

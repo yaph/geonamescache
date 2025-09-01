@@ -64,7 +64,7 @@ def extract_zip(zip_path: Path, extract_to: Path) -> bool:
 async def download_all_files() -> bool:
     """Download all required data files."""
 
-    data_dir = Path('data')
+    data_dir = Path('datasets')
     data_dir.mkdir(exist_ok=True)
     print(f'Downloading data to: {data_dir.absolute()}')
 

@@ -3,7 +3,7 @@ import csv
 import json
 from pathlib import Path
 
-p_data = Path('data')
+p_data = Path('datasets')
 
 reader = csv.reader(p_data.joinpath('us_counties.txt').open())
 next(reader)  # skip header row
