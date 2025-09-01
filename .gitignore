@@ -1,10 +1,7 @@
 # Project
-data/*.csv
-data/*.json
-data/*.txt
-data/*.zip
+datasets/
 
-geonamescache/data/us_states.json
+geonamescache/data/
 
 
 # Byte-compiled / optimized / DLL files

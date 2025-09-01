@@ -40,6 +40,7 @@ path = "geonamescache/__init__.py"
 
 [tool.hatch.envs.geonamescache-dev]
 extra-dependencies = [
+  "beautifulsoup4",
   "flake8",
   "ipdb",
   "httpx",
@@ -85,6 +86,17 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+[tool.hatch.build.targets.sdist]
+ignore-vcs = true
+include = ["geonamescache"]
+
+[tool.hatch.build.targets.wheel]
+ignore-vcs = true
+only-include = ["geonamescache"]
+
+[tool.hatch.build.hooks.custom]
+dependencies = []
 
 [tool.ruff.lint]
 ignore = ["T201", "DTZ005"]
