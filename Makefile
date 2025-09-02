@@ -16,6 +16,7 @@ json:
 	./bin/countries.py
 	./bin/cities.py
 	./bin/us_counties.py
+	./bin/us_states.py
 	mv datasets/*.json geonamescache/data/
 
 clean: clean-build clean-py clean-test clean-datasets

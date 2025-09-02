@@ -99,7 +99,7 @@ only-include = ["geonamescache"]
 dependencies = []
 
 [tool.ruff.lint]
-ignore = ["T201", "DTZ005"]
+ignore = ["T201", "DTZ005", "S501"]
 
 [tool.ruff.format]
 quote-style = "preserve"

@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-from pathlib import Path
 import json
 import re
+from pathlib import Path
 
-from bs4 import BeautifulSoup
 import httpx
+from bs4 import BeautifulSoup
+
+GEONAME_ID_POS = 3
 
 
 def extract_us_states_data():
@@ -59,9 +61,9 @@ def extract_us_states_data():
 
                     # Extract geoname ID from href (assuming format like "/path/path/ID/name")
                     href_parts = href.split('/')
-                    if len(href_parts) > 3:
+                    if len(href_parts) > GEONAME_ID_POS:
                         try:
-                            geoname_id = int(href_parts[3])
+                            geoname_id = int(href_parts[GEONAME_ID_POS])
 
                             # Create the data structure matching the JavaScript output
                             states_data[code] = {

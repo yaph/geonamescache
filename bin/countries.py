@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 countries = {}
-p_data = Path('data')
+p_data = Path('datasets')
 
 reader = csv.reader(p_data.joinpath('countryInfo.txt').open(), 'excel-tab')
 for record in reader:
@@ -54,4 +54,4 @@ for record in reader:
     }
 
 
-Path('datasets', 'countries.json').write_text(json.dumps(countries))
+p_data.joinpath('countries.json').write_text(json.dumps(countries))

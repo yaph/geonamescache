@@ -3,7 +3,7 @@ import csv
 import json
 from pathlib import Path
 
-p_data = Path('data')
+p_data = Path('datasets')
 
 for min_population in [500, 1000, 5000, 15000]:
     cities = {}

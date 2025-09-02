@@ -21,25 +21,20 @@ async def download_file(client: httpx.AsyncClient, filename: str, url: str, data
     """Download a single file."""
 
     print(f'Downloading {filename}...')
-
     try:
         response = await client.get(url, follow_redirects=True)
         response.raise_for_status()
-        file_path = data_dir / filename
-
-        file_path.write_bytes(response.content)
-        print(f'✓ Downloaded {filename}')
-        return True
-
     except httpx.RequestError as e:
         print(f'✗ Network error downloading {filename}: {e}')
         return False
     except httpx.HTTPStatusError as e:
         print(f'✗ HTTP error downloading {filename}: {e.response.status_code}')
         return False
-    except Exception as e:
-        print(f'✗ Unexpected error downloading {filename}: {e}')
-        return False
+
+    file_path = data_dir / filename
+    file_path.write_bytes(response.content)
+    print(f'✓ Downloaded {filename}')
+    return True
 
 
 def extract_zip(zip_path: Path, extract_to: Path) -> bool:
@@ -48,17 +43,13 @@ def extract_zip(zip_path: Path, extract_to: Path) -> bool:
     try:
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(extract_to)
-
-        zip_path.unlink()
-        print(f'✓ Extracted and removed {zip_path.name}')
-        return True
-
     except zipfile.BadZipFile:
         print(f'✗ Bad zip file: {zip_path}')
         return False
-    except Exception as e:
-        print(f'✗ Error extracting {zip_path}: {e}')
-        return False
+
+    zip_path.unlink()
+    print(f'✓ Extracted and removed {zip_path.name}')
+    return True
 
 
 async def download_all_files() -> bool:
@@ -96,7 +87,7 @@ async def download_all_files() -> bool:
             if isinstance(result, Exception):
                 print(f'✗ Failed to download {filename}: {result}')
                 continue
-            elif not result:
+            if not result:
                 continue
 
             success_count += 1
@@ -117,8 +108,6 @@ def main():
         sys.exit(0 if success else 1)
     except KeyboardInterrupt:
         sys.exit('\n✗ Download interrupted by user')
-    except Exception as e:
-        sys.exit(f'✗ Unexpected error: {e}')
 
 
 if __name__ == '__main__':
