@@ -38,5 +38,11 @@ jobs:
     - name: Run static analysis
       run: hatch fmt --linter
 
+    - name: Download data
+      run: bin/download_data.py
+
+    - name: Create JSON files
+      run: make json
+
     - name: Run tests
       run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1
