@@ -42,6 +42,8 @@ jobs:
       run: bin/download_data.py
 
     - name: Create JSON files
+      env:
+          GEONAMES_USER: ${{ secrets.GEONAMES_USER }}
       run: make json
 
     - name: Run tests
