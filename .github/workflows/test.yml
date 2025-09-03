@@ -48,7 +48,7 @@ jobs:
           datasets-
 
     - name: Download data
-      run: hatch run geonamescache-dev:bin/download_data.py
+      run: hatch run geonamescache-dev:python bin/download_data.py
 
     - name: Create JSON files
       env:
@@ -56,4 +56,4 @@ jobs:
       run: hatch run geonamescache-dev:make json
 
     - name: Run tests
-      run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1
+      run: hatch test --cover --randomize --parallel --retries 2 --retry-delay 1
