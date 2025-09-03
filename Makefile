@@ -12,6 +12,7 @@ dl:
 	./bin/download_data.py
 
 json:
+	mkdir -p geonamescache/data/
 	./bin/continents.py
 	./bin/countries.py
 	./bin/cities.py
