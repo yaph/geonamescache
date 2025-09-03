@@ -5,7 +5,7 @@ from pathlib import Path
 
 p_data = Path('datasets')
 
-reader = csv.reader(p_data.joinpath('national_county2020.txt').open())
+reader = csv.reader(p_data.joinpath('national_county2020.txt').open(encoding='utf-8'))
 next(reader)  # skip header row
 
 state_name_idx = 0

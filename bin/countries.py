@@ -6,7 +6,7 @@ from pathlib import Path
 countries = {}
 p_data = Path('datasets')
 
-reader = csv.reader(p_data.joinpath('countryInfo.txt').open(), 'excel-tab')
+reader = csv.reader(p_data.joinpath('countryInfo.txt').open(encoding='utf-8'), 'excel-tab')
 for record in reader:
     if record[0].startswith('#'):
         continue
