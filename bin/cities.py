@@ -8,7 +8,7 @@ p_data = Path('datasets')
 for min_population in [500, 1000, 5000, 15000]:
     cities = {}
     slug = f'cities{min_population}'
-    reader = csv.reader(p_data.joinpath(slug + '.txt').open(), 'excel-tab')
+    reader = csv.reader(p_data.joinpath(slug + '.txt').open(encoding='utf-8'), 'excel-tab')
 
     for record in reader:
         (
