@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# Get continent data including bounding boxes and centroids for and store it
-# in json file keyed by continentCode.
+# Get continent data including bounding boxes and centroids and store it
+# in JSON file keyed by continentCode.
 import json
 import os
 import sys
@@ -19,8 +19,7 @@ continents = {}
 
 def account_ok(j):
     if j.get('status', {}).get('value') == ACCOUNT_ERR_CODE:
-        print(j['status']['message'])
-        sys.exit(1)
+        sys.exit((j['status']['message']))
 
 
 for geoid in continent_ids:
