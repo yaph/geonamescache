@@ -25,29 +25,27 @@ jobs:
         python-version: ['3.10', '3.11', '3.12']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
+        cache: 'pip'
 
     - name: Install Hatch
       run: pip install --upgrade hatch
-
-    - name: Activate Hatch
-      run: hatch shell geonamescache-dev
 
     - name: Run static analysis
       run: hatch fmt --linter
 
     - name: Download data
-      run: bin/download_data.py
+      run: hatch run geonamescache-dev:bin/download_data.py
 
     - name: Create JSON files
       env:
           GEONAMES_USER: ${{ secrets.GEONAMES_USER }}
-      run: make json
+      run: hatch run geonamescache-dev:make json
 
     - name: Run tests
       run: hatch test --python ${{ matrix.python-version }} --cover --randomize --parallel --retries 2 --retry-delay 1
