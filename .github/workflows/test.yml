@@ -39,12 +39,20 @@ jobs:
     - name: Run static analysis
       run: hatch fmt --linter
 
+    - name: Cache datasets
+      uses: actions/cache@v3
+      with:
+        path: datasets/
+        key: datasets-${{ hashFiles('bin/download_data.py') }}
+        restore-keys: |
+          datasets-
+
     - name: Download data
       run: hatch run geonamescache-dev:bin/download_data.py
 
     - name: Create JSON files
       env:
-          GEONAMES_USER: ${{ secrets.GEONAMES_USER }}
+        GEONAMES_USER: ${{ secrets.GEONAMES_USER }}
       run: hatch run geonamescache-dev:make json
 
     - name: Run tests
