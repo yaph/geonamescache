@@ -5,6 +5,10 @@ from geonamescache import GeonamesCache, mappings
 from geonamescache.types import ContinentCode, CountryFields, CountryNumericFields, CountryStringFields
 
 
+gc = GeonamesCache()
+countries = gc.get_countries()
+
+
 @overload
 def country(from_key: str = "name", *, to_key: CountryNumericFields) -> Callable[[str], int]: ...
 
@@ -15,10 +19,6 @@ def country(from_key: str = "name", to_key: CountryStringFields = "iso") -> Call
 
 @overload
 def country(from_key: str = "name", *, to_key: Literal["continentcode"]) -> Callable[[str], ContinentCode]: ...
-
-
-gc = GeonamesCache()
-countries = gc.get_countries()
 
 
 def country(from_key: str = "name", to_key: CountryFields = "iso") -> Callable[[str], Any]:
