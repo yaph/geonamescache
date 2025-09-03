@@ -17,6 +17,10 @@ def country(from_key: str = "name", to_key: CountryStringFields = "iso") -> Call
 def country(from_key: str = "name", *, to_key: Literal["continentcode"]) -> Callable[[str], ContinentCode]: ...
 
 
+gc = GeonamesCache()
+countries = gc.get_countries()
+
+
 def country(from_key: str = "name", to_key: CountryFields = "iso") -> Callable[[str], Any]:
     """Creates and returns a mapper function to access country data.
 
@@ -32,17 +36,17 @@ def country(from_key: str = "name", to_key: CountryFields = "iso") -> Callable[[
     :rtype: function
     """
 
-    gc = GeonamesCache()
-    dataset = gc.get_dataset_by_key(gc.get_countries(), from_key)
+    dataset = gc.get_dataset_by_key(countries, from_key)
 
     def mapper(value: str) -> Any:
         # For country names take the mappings into account.
         if from_key == "name":
             value = mappings.country_names.get(value, value)
+
         # If there is a record return the corresponding attribute value.
-        item = dataset.get(value)
-        if item:
+        if item := dataset.get(value):
             return item[to_key]
+
         return None
 
     return mapper
