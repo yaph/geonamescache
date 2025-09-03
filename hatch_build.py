@@ -9,12 +9,11 @@ class GitignoreBuildHook(BuildHookInterface):
     def initialize(self, _version, _build_data):
         """Temporarily modify .gitignore so data is included when the sdist is installed using pip. """
 
-        # On Windows .gitignore.tmp may already exist and cause an error, when calling rename later.
-        Path('.gitignore.tmp').unlink(missing_ok=True)
-
         gi = Path('.gitignore')
         if gi.exists():
             cleaned = gi.read_text().replace('geonamescache/data/', '')
+            # On Windows .gitignore.tmp may already exist and cause an error, when calling rename.
+            Path('.gitignore.tmp').unlink(missing_ok=True)
             gi.rename('.gitignore.tmp')
             Path('.gitignore').write_text(cleaned)
 
@@ -22,4 +21,6 @@ class GitignoreBuildHook(BuildHookInterface):
     def finalize(self, _version, _build_data, _artifact):
         gi = Path('.gitignore.tmp')
         if gi.exists():
+            # On Windows .gitignore may already exist and cause an error, when calling rename.
+            Path('.gitignore').unlink(missing_ok=True)
             gi.rename('.gitignore')
