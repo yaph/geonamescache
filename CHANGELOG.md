@@ -6,9 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
-## Unreleased
+## [3.0.0](https://github.com/yaph/geonamescache/releases/tag/3.0.0) - 2025-09-26
 
-<small>[Compare with latest](https://github.com/yaph/geonamescache/compare/2.0.0...HEAD)</small>
+<small>[Compare with 2.0.0](https://github.com/yaph/geonamescache/compare/2.0.0...3.0.0)</small>
 
 ### Added
 
@@ -84,6 +84,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Removed
 
+- Remove version hint ([6d7827c](https://github.com/yaph/geonamescache/commit/6d7827cf27f44eee0ca4c8a4fb6fd373ba686888) by Ramiro Gómez).
 - Remove unicode characters because it breaks on windows ([b283410](https://github.com/yaph/geonamescache/commit/b2834107c101e58f7ffbf204a728458d83a99f6c) by Ramiro Gómez).
 - Remove data_dir argument. ([170a804](https://github.com/yaph/geonamescache/commit/170a8042c7a8e5bf2a770aba1f9d645c25c071d0) by Ramiro Gómez).
 - Remove gitattributes ([ddf9d8c](https://github.com/yaph/geonamescache/commit/ddf9d8c95769bf2aaddb63117e6b546815907881) by Ramiro Gómez).
@@ -108,7 +109,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - removed docs dir, documentation in README, DRY ([53f108e](https://github.com/yaph/geonamescache/commit/53f108e2445d0bb73b44c524525309ac2afd655d) by Ramiro Gomez).
 - removed README.md ([a0980cb](https://github.com/yaph/geonamescache/commit/a0980cbfa9ec30b18d47a9a1b15329df085f6e1d) by Ramiro Gomez).
 
-<!-- insertion marker -->
 ## [2.0.0](https://github.com/yaph/geonamescache/releases/tag/2.0.0) - 2023-07-03
 
 <small>[Compare with 1.6.0](https://github.com/yaph/geonamescache/compare/1.6.0...2.0.0)</small>
