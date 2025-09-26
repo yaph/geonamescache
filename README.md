@@ -25,8 +25,6 @@ A simple example:
 
 When creating a `GeonamesCache` you can set the `min_city_population` parameter to either of 500, 1000, 5000 or the default 15000. The smaller the minimum population the more cities are included in the cities dataset.
 
-*New in version 1.4*
-
 ## Methods
 
 Currently geonamescache provides the following methods, that return dictionaries with the requested data:
