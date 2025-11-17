@@ -47,6 +47,9 @@ extra-dependencies = [
   "mypy>=1.0.0"
 ]
 
+[tool.hatch.envs.geonamescache-dev.env-vars]
+PYTHONBREAKPOINT = "ipdb.set_trace"
+
 [tool.hatch.envs.geonamescache-dev.scripts]
 type_check = "mypy --install-types --non-interactive {args:geonamescache tests}"
 qa = [
