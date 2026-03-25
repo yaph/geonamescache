@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [3.0.1](https://github.com/yaph/geonamescache/releases/tag/3.0.1) - 2026-03-25
+
+<small>[Compare with 3.0.0](https://github.com/yaph/geonamescache/compare/3.0.0...3.0.1)</small>
+
+### Fixed
+
+- fix: use stdlib typing on Python 3.11+ to avoid deadlock on Python 3.13 ([7eb1637](https://github.com/yaph/geonamescache/commit/7eb1637094776e6a8895051b820f87b11a6daaec) by rotem dafni).
+
 ## [3.0.0](https://github.com/yaph/geonamescache/releases/tag/3.0.0) - 2025-09-26
 
 <small>[Compare with 2.0.0](https://github.com/yaph/geonamescache/compare/2.0.0...3.0.0)</small>
@@ -133,7 +141,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Fix importib files is only support 3.9 so revert ([3fb70ea](https://github.com/yaph/geonamescache/commit/3fb70ea8561f899662f3e374b9d3d481d4879bb9) by Benny Elgazar).
 
-## [1.4.0](https://github.com/yaph/geonamescache/releases/tag/1.4.0) - 2022-07-13
+## [1.4.0](https://github.com/yaph/geonamescache/releases/tag/1.4.0) - 2022-07-14
 
 <small>[Compare with 1.3.0](https://github.com/yaph/geonamescache/compare/1.3.0...1.4.0)</small>
 
@@ -188,7 +196,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Remove Python versions not supported by Travis ([46bc5f4](https://github.com/yaph/geonamescache/commit/46bc5f4918ee94ebb2693a01379d3e0e8b33d246) by Ramiro Gómez).
 
-## [1.0.3](https://github.com/yaph/geonamescache/releases/tag/1.0.3) - 2019-08-27
+## [1.0.3](https://github.com/yaph/geonamescache/releases/tag/1.0.3) - 2019-08-28
 
 <small>[Compare with 1.0.2](https://github.com/yaph/geonamescache/compare/1.0.2...1.0.3)</small>
 
