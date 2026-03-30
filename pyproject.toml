@@ -39,6 +39,7 @@ Source = "https://github.com/yaph/geonamescache"
 path = "geonamescache/__init__.py"
 
 [tool.hatch.envs.geonamescache-dev]
+builder = true
 extra-dependencies = [
   "beautifulsoup4",
   "flake8",
