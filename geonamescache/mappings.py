@@ -49,6 +49,7 @@ country_names: dict[str, str] = {
     'Saint Helena, Ascension and Tristan da Cunha': 'Saint Helena',
     'Slovak Republic': 'Slovakia',
     'State of Palestine': 'Palestinian Territory',
+    'Swaziland': 'Eswatini',
     'Syrian Arab Republic': 'Syria',
     'Taiwan Province of China': 'Taiwan',
     'Taiwan, China': 'Taiwan',
