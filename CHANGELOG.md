@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [Unreleased]
+
+### Added
+
+- Add `get_admin1_codes()` method returning first-level administrative division data from the GeoNames `admin1CodesASCII.txt` dataset, keyed by `<countrycode>.<admin1code>` (e. g. `US.CA`), which allows resolving the `countrycode`/`admin1code` references stored in city records.
+
 ## [3.0.2](https://github.com/yaph/geonamescache/releases/tag/3.0.2) - 2026-07-28
 
 <small>[Compare with 3.0.1](https://github.com/yaph/geonamescache/compare/3.0.1...3.0.2)</small>

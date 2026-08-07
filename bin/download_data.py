@@ -8,6 +8,7 @@ import httpx
 
 # Data files to download
 DOWNLOADS = [
+    'http://download.geonames.org/export/dump/admin1CodesASCII.txt',
     'http://download.geonames.org/export/dump/cities500.zip',
     'http://download.geonames.org/export/dump/cities1000.zip',
     'http://download.geonames.org/export/dump/cities5000.zip',

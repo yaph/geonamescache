@@ -10,6 +10,8 @@ from collections.abc import Mapping
 from typing import Any, ClassVar, TypeVar
 
 from geonamescache.types import (
+    Admin1,
+    Admin1CodeStr,
     City,
     CitySearchAttribute,
     Continent,
@@ -27,6 +29,7 @@ TDict = TypeVar('TDict', bound=Mapping[str, Any])
 
 
 class GeonamesCache:
+    admin1: dict[Admin1CodeStr, Admin1] | None = None
     continents: dict[ContinentCode, Continent] | None = None
     countries: dict[ISOStr, Country] | None = None
     cities: dict[GeoNameIdStr, City] | None = None
@@ -46,6 +49,10 @@ class GeonamesCache:
 
     def get_countries(self) -> dict[ISOStr, Country]:
         return self._load_data(self.countries, 'countries.json')
+
+    def get_admin1_codes(self) -> dict[Admin1CodeStr, Admin1]:
+        """Get first-level administrative divisions keyed by <countrycode>.<admin1code>, e. g. US.CA."""
+        return self._load_data(self.admin1, 'admin1.json')
 
     def get_us_states(self) -> dict[USStateCode, USState]:
         return self._load_data(self.us_states, 'us_states.json')

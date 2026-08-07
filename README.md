@@ -2,7 +2,7 @@
 
 [![image](https://img.shields.io/pypi/v/geonamescache.svg)](https://pypi.python.org/pypi/geonamescache)
 
-A Python library that provides functions to retrieve names, ISO and FIPS codes of continents, countries as well as US states and counties as Python dictionaries. The country and city datasets also include population and geographic data.
+A Python library that provides functions to retrieve names, ISO and FIPS codes of continents, countries and first-level administrative divisions as well as US states and counties as Python dictionaries. The country and city datasets also include population and geographic data.
 
 Geonames data is obtained from [GeoNames](http://www.geonames.org/).
 
@@ -31,12 +31,15 @@ Currently geonamescache provides the following methods, that return dictionaries
 
 * get\_continents()
 * get\_countries()
+* get\_admin1\_codes()
 * get\_us\_states()
 * get\_cities()
 * get\_countries\_by\_names()
 * get\_us\_states\_by\_names()
 * get\_cities\_by\_name(name)
 * get\_us\_counties()
+
+The dictionary returned by `get_admin1_codes()` is keyed by the code `<countrycode>.<admin1code>`, for example `US.CA` for California, which allows resolving the `countrycode` and `admin1code` references stored in city records.
 
 In addition you can search for cities by name.
 

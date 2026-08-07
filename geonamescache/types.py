@@ -8,6 +8,7 @@ else:
 
 GeoNameIdStr = str
 ISOStr = str
+Admin1CodeStr = str
 ContinentCode = Literal["AF", "AN", "AS", "EU", "NA", "OC", "SA"]
 USStateCode = Literal[
     "AK",
@@ -165,6 +166,12 @@ class Continent(TypedDict):
     srtm3: int
     wikipediaURL: str
     cc2: NotRequired[str]
+
+
+class Admin1(TypedDict):
+    asciiname: str
+    geonameid: int
+    name: str
 
 
 class City(TypedDict):

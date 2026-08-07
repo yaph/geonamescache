@@ -13,6 +13,7 @@ dl:
 
 json:
 	mkdir -p geonamescache/data/
+	./bin/admin1.py
 	./bin/continents.py
 	./bin/countries.py
 	./bin/cities.py

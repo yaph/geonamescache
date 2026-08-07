@@ -3,6 +3,26 @@ from geonamescache import GeonamesCache
 gc = GeonamesCache()
 
 
+def test_get_admin1_codes():
+    admin1 = gc.get_admin1_codes()
+    assert len(admin1) > 3000
+    for key, name, geonameid in (
+        ('US.CA', 'California', 5332921),
+        ('ES.51', 'Andalusia', 2593109),
+    ):
+        assert name == admin1[key]['name']
+        assert geonameid == admin1[key]['geonameid']
+
+
+def test_admin1_code_resolves_city_reference():
+    # Cities store countrycode and admin1code separately, the composite
+    # admin1 key allows resolving these references.
+    city = gc.get_cities()['5368361']
+    assert 'Los Angeles' == city['name']
+    key = f"{city['countrycode']}.{city['admin1code']}"
+    assert 'California' == gc.get_admin1_codes()[key]['name']
+
+
 def test_get_countries_by_names():
     # Length of get_countries_by_names dict and get_countries dict must be
     # the same, unless country names wouldn't be unique.
