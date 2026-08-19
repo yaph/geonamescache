@@ -8,11 +8,14 @@ import httpx
 
 # Data files to download
 DOWNLOADS = [
+    'http://download.geonames.org/export/dump/admin1CodesASCII.txt',
+    'http://download.geonames.org/export/dump/admin2Codes.txt',
     'http://download.geonames.org/export/dump/cities500.zip',
     'http://download.geonames.org/export/dump/cities1000.zip',
     'http://download.geonames.org/export/dump/cities5000.zip',
     'http://download.geonames.org/export/dump/cities15000.zip',
     'http://download.geonames.org/export/dump/countryInfo.txt',
+    'http://download.geonames.org/export/dump/timeZones.txt',
     'https://www2.census.gov/geo/docs/reference/codes2020/national_county2020.txt'
 ]
 

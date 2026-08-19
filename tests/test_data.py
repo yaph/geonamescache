@@ -1,3 +1,6 @@
+from pathlib import Path
+
+import geonamescache
 from geonamescache import GeonamesCache
 
 gc = GeonamesCache()
@@ -66,3 +69,11 @@ def test_us_states():
 
     for code in ['XX', 'OO']:
         assert code not in us_states
+
+
+def test_data_files_are_gzipped():
+    # The bundled datasets are stored gzipped to keep the installed package
+    # small. A stale plain .json alongside them would be shipped and ignored.
+    data_dir = Path(geonamescache.__file__).parent / 'data'
+    assert sorted(p.name for p in data_dir.glob('*.json')) == []
+    assert len(list(data_dir.glob('*.json.gz'))) > 5

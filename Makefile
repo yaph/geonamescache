@@ -13,12 +13,15 @@ dl:
 
 json:
 	mkdir -p geonamescache/data/
+	./bin/admin1.py
+	./bin/admin2.py
 	./bin/continents.py
 	./bin/countries.py
 	./bin/cities.py
 	./bin/us_counties.py
 	./bin/us_states.py
-	mv datasets/*.json geonamescache/data/
+	./bin/timezones.py
+	./bin/compress_data.py
 
 clean: clean-build clean-py clean-dev clean-datasets
 

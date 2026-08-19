@@ -8,6 +8,9 @@ else:
 
 GeoNameIdStr = str
 ISOStr = str
+Admin1CodeStr = str
+Admin2CodeStr = str
+TimeZoneIdStr = str
 ContinentCode = Literal["AF", "AN", "AS", "EU", "NA", "OC", "SA"]
 USStateCode = Literal[
     "AK",
@@ -115,13 +118,23 @@ USStateName = Literal[
     "West Virginia",
     "Wyoming",
 ]
-CitySearchAttribute = Literal["alternatenames", "admin1code", "countrycode", "name", "timezone"]
+CitySearchAttribute = Literal[
+    "alternatenames", "admin1code", "admin2code", "countrycode", "featurecode", "name", "timezone"
+]
 
 
 class TimeZone(TypedDict):
     dstOffset: int
     gmtOffset: int
     timeZoneId: str
+
+
+class TimeZoneInfo(TypedDict):
+    countrycode: str
+    timezoneid: str
+    gmtoffset: float
+    dstoffset: float
+    rawoffset: float
 
 
 class BBox(TypedDict):
@@ -167,10 +180,24 @@ class Continent(TypedDict):
     cc2: NotRequired[str]
 
 
+class Admin1(TypedDict):
+    asciiname: str
+    geonameid: int
+    name: str
+
+
+class Admin2(TypedDict):
+    asciiname: str
+    geonameid: int
+    name: str
+
+
 class City(TypedDict):
     alternatenames: list[str]
     admin1code: str
+    admin2code: str
     countrycode: str
+    featurecode: str
     geonameid: int
     latitude: float
     longitude: float

@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [Unreleased]
+
+### Changed
+
+- Store the bundled datasets gzipped. This cuts the installed size of the package from 203 MB to 36 MB at no cost in load time, as the saved I/O offsets the decompression. Wheel and sdist size are unchanged, since those were already compressed. Building the data now ends with `./bin/compress_data.py` instead of moving the JSON files into place.
+
+- **Breaking:** `get_cities_by_name()` now returns a list of city records, where it previously returned a list of single-entry dictionaries keyed by geonameid. Use `city['geonameid']` to get the id, which the records already carry. Unknown names return an empty list.
+- `get_cities_by_name()` now builds an index of all city names on first call instead of scanning the dataset once per name. Looking up 500 distinct names on the 500 population dataset went from 5.3 s to 0.6 s, and the removed `cities_items` list no longer duplicates the dataset's items.
+
+### Added
+
+- Add `featurecode` to city records, the GeoNames feature code that distinguishes a capital (`PPLC`) or administrative seat (`PPLA` through `PPLA5`) from an ordinary populated place (`PPL`). It is also searchable via `search_cities(attribute='featurecode')`. The feature class is always `P` in these datasets and is not stored.
+- Add `get_cities_by_names()` method returning all city records grouped by name, the index behind `get_cities_by_name()`.
+
+### Fixed
+
+- Fix dataset caching. `_load_data()` returned the parsed data without storing it, so every getter call re-read and re-parsed its JSON file from disk. Repeated `get_cities()` calls on the 500-population dataset took roughly 0.4 s each and now cost nothing after the first.
+- Fix `get_cities_by_name()` returning results from the wrong dataset. Its cache was a class attribute keyed by city name only, while results depend on `min_city_population`, so an instance created after one with a smaller dataset was served the other instance's results. The cache is now per instance.
+
+### Added
+
+- Add `get_admin1_codes()` method returning first-level administrative division data from the GeoNames `admin1CodesASCII.txt` dataset, keyed by `<countrycode>.<admin1code>` (e. g. `US.CA`), which allows resolving the `countrycode`/`admin1code` references stored in city records.
+- Add `get_admin2_codes()` method returning second-level administrative division data from the GeoNames `admin2Codes.txt` dataset, keyed by `<countrycode>.<admin1code>.<admin2code>` (e. g. `NL.11.0599`).
+- Add `admin2code` to city records, completing the composite key needed to look up second-level divisions.
+- Add `get_admin1_by_city()` and `get_admin2_by_city()` methods that resolve the administrative division of a city record, returning `None` when the city's codes are missing or absent from the division dataset.
+- Add `get_timezones()` method returning time zone data from the GeoNames `timeZones.txt` dataset, keyed by IANA time zone id (e. g. `Europe/Amsterdam`), which resolves the `timezone` field stored in city records.
+- Add `get_timezones_by_country()` method returning the time zones of a country as a list sorted by time zone id, taking a case insensitive ISO alpha-2 country code.
+- Add a data formats section to the README documenting the return value of every method with concrete examples.
+
 ## [3.0.2](https://github.com/yaph/geonamescache/releases/tag/3.0.2) - 2026-07-28
 
 <small>[Compare with 3.0.1](https://github.com/yaph/geonamescache/compare/3.0.1...3.0.2)</small>
