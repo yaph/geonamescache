@@ -24,6 +24,7 @@ from geonamescache.types import (
 )
 
 TDict = TypeVar('TDict', bound=Mapping[str, Any])
+TData = TypeVar('TData')
 
 
 class GeonamesCache:
@@ -72,7 +73,7 @@ class GeonamesCache:
             self.cities_by_names[name] = [{gid: city} for gid, city in self.cities_items if city['name'] == name]
         return self.cities_by_names[name]
 
-    def get_us_counties(self):
+    def get_us_counties(self) -> list[USCounty]:
         return self._load_data(self.us_counties, 'us_counties.json')
 
     def search_cities(
@@ -105,7 +106,7 @@ class GeonamesCache:
         return results
 
     @staticmethod
-    def _load_data(datadict: dict[Any, Any] | None, datafile: str) -> dict[Any, Any]:
+    def _load_data(datadict: TData | None, datafile: str) -> TData:
         if datadict is None:
             with open(os.path.join(os.path.dirname(__file__), 'data', datafile)) as f:
                 datadict = json.load(f)
